@@ -1,0 +1,1063 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación del Proyecto - Portal USPG</title>
+    <!-- Asegúrate que la ruta a documentation_styles.css sea correcta -->
+    <link rel="stylesheet" href="styles/documentation_styles.css">
+</head>
+<body>
+    <div class="documentation-container">
+        <header class="doc-header">
+            <h1>Documentación del Proyecto: Mejora Visual y Funcional del Portal Estudiantil - Universidad San Pablo</h1>
+            <p class="project-subtitle">Versión 1.0 - Julio 2024</p>
+        </header>
+
+        <nav class="doc-toc">
+            <h2>Tabla de Contenidos</h2>
+            <ul>
+                <li><a href="#introduccion">1. Introducción</a></li>
+                <li><a href="#tecnologias">2. Tecnologías Utilizadas</a></li>
+                <li><a href="#estructura-carpetas">3. Estructura de Carpetas del Proyecto</a></li>
+                <li><a href="#descripcion-vistas">4. Descripción de Vistas y Casos de Uso</a>
+                    <ul>
+                        <li><a href="#vista-index">4.1. index.html (Inicio de Sesión)</a></li>
+                        <li><a href="#vista-recuperar">4.2. recuperar_contraseña.html (Recuperar Contraseña)</a></li>
+                        <li><a href="#vista-main">4.3. main.html (Panel Principal)</a></li>
+                        <li><a href="#vista-cuenta-corriente">4.4. cuenta_corriente.html (Cuenta Corriente)</a></li>
+                        <li><a href="#vista-pago-tarjeta">4.5. pago_tarjeta.html (Pago con Tarjeta)</a></li>
+                        <li><a href="#vista-estado-cuenta">4.6. estado_cuenta.html (Estado de Cuenta)</a></li>
+                        <li><a href="#vista-cursos">4.7. cursos.html (Mis Cursos Asignados)</a></li>
+                        <li><a href="#vista-asignaciones">4.8. asignaciones.html (Asignaciones y Carreras)</a></li>
+                        <li><a href="#vista-perfil-usuario">4.9. perfil_usuario.html (Perfil de Usuario)</a></li>
+                        <li><a href="#vista-editar-usuario">4.10. editar-usuario.html (Editar Info. Usuario)</a></li>
+                        <li><a href="#vista-editar-identificaciones">4.11. editar-identificaciones.html (Editar Identificaciones)</a></li>
+                        <li><a href="#vista-editar-academica">4.12. editar-academica.html (Editar Info. Académica)</a></li>
+                        <li><a href="#vista-editar-contactos">4.13. editar-contactos.html (Editar Contactos)</a></li>
+                    </ul>
+                </li>
+                <li><a href="#archivos-css">5. Archivos CSS Principales</a></li>
+                <li><a href="#archivos-js">6. Archivos JavaScript Principales</a></li>
+                <li><a href="#resumen-mejoras">7. Resumen General de Mejoras</a></li>
+            </ul>
+        </nav>
+
+        <section id="introduccion" class="doc-section">
+            <h2>1. Introducción</h2>
+            <p>El presente documento detalla el desarrollo y las características del proyecto de mejora visual y funcional para el portal estudiantil de la Universidad San Pablo. El objetivo principal fue modernizar la interfaz de usuario, unificar el diseño a través de las diferentes secciones y mejorar la experiencia general del estudiante al interactuar con el portal.</p>
+            <p>Se ha puesto énfasis en la claridad de la información, la facilidad de navegación y la implementación de un diseño responsivo utilizando el framework Bootstrap 5 para las vistas internas del portal, manteniendo un diseño personalizado para el login y la recuperación de contraseña. La persistencia de datos, como la información de perfil y el estado de inicio de sesión, se maneja a través de <code class="js-object">localStorage</code> del navegador.</p>
+        </section>
+
+        <section id="tecnologias" class="doc-section">
+            <h2>2. Tecnologías Utilizadas</h2>
+            <ul>
+                <li><strong>HTML5:</strong> Para la estructura semántica del contenido</li>
+                <li><strong>CSS3:</strong> Para la estilización visual, incluyendo variables CSS, Flexbox y Grid</li>
+                <li><strong>Bootstrap 5.3.0:</strong> Framework CSS utilizado para el diseño responsivo y componentes UI en la mayoría de las vistas internas (post-login)</li>
+                <li><strong>JavaScript (ES6+):</strong> Para la interactividad del lado del cliente, manejo de formularios, manipulación del DOM y gestión de datos con <code class="js-object">localStorage</code></li>
+                <li><strong>Font Awesome 6.4.0:</strong> Para la iconografía utilizada en toda la aplicación</li>
+                <li><strong>Google Fonts (Poppins):</strong> Tipografía principal utilizada en el panel de <code class="file-name">main.html</code> para una apariencia moderna</li>
+            </ul>
+        </section>
+
+        <section id="estructura-carpetas" class="doc-section">
+            <h2>3. Estructura de Carpetas del Proyecto</h2>
+            <p>El proyecto se organiza de la siguiente manera:</p>
+            <pre>
+PROYECTO INGE SOFTWARE/
+├── Fotos/                  (Imágenes específicas, posiblemente de perfil o documentos)
+│   └── eef9d9e5-ef9c-40b5-88fa-7d00b682bcd7...
+│   └── Tarjetas.png
+│   └── Untitled.png
+├── Imagenes/               (Imágenes generales de la interfaz y logos)
+│   ├── bannerImageLeft.png
+│   ├── defaultUserIcon.png
+│   ├── san_pablo_logo.png
+│   ├── Sanpabloguate.jpg
+│   ├── sliderImages1.png
+│   ├── sliderImages2.png
+│   ├── sliderImages3.png
+│   └── Tarjetas.png        (Posiblemente duplicado o diferente de Fotos/Tarjetas.png)
+├── scripts/                (Archivos JavaScript globales o modulares)
+│   └── login.js
+├── styles/                 (Hojas de estilo CSS)
+│   ├── asignaciones_styles_v2.css (Estilos originales para asignaciones, no usados en la versión final)
+│   ├── documentation_styles.css (Estilos para esta documentación)
+│   └── styles.css          (Estilos para index.html y recuperar_contraseña.html)
+├── asignaciones.html
+├── cuenta_corriente.html
+├── cursos.html
+├── Documentacion.HTML      (Este archivo)
+├── editar-academica.html
+├── editar-contactos.html
+├── editar-identificaciones.html
+├── editar-usuario.html
+├── estado_cuenta.html
+├── index.html
+├── main.html
+├── pago_tarjeta.html
+├── Perfil_usuario.html     (Nota: Distinguir entre Perfil_usuario.html y perfil_usuario.html si ambos existen)
+├── recuperar_contraseña.html
+└── (Otros archivos HTML o recursos no listados)
+            </pre>
+            <p><strong>Nota:</strong> Durante el proceso de mejora, muchos estilos CSS específicos de vistas que usaban Bootstrap fueron integrados directamente en las etiquetas <code class="html-element">&lt;style&gt;&lt;/style&gt;</code> de los respectivos archivos HTML para simplificar y asegurar la aplicación del diseño unificado. El archivo <code class="file-path">styles/stylesMain.css</code> fue completamente integrado en <code class="file-name">main.html</code>.</p>
+        </section>
+
+        <section id="descripcion-vistas" class="doc-section">
+            <h2>4. Descripción de Vistas y Casos de Uso</h2>
+
+            <article id="vista-index" class="file-documentation">
+                <h3>4.1. <code class="file-name">index.html</code> (Página de Inicio de Sesión)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite a los usuarios autenticarse para acceder al portal estudiantil.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Logo de la Universidad</li>
+                    <li>Formulario con campos para "Usuario" y "Contraseña"</li>
+                    <li>Checkbox "No cerrar sesión"</li>
+                    <li>Botón "Iniciar"</li>
+                    <li>Enlace para recuperación de contraseña</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Estilos definidos en <code class="file-path">styles/styles.css</code></li>
+                    <li>Lógica de autenticación manejada por <code class="file-path">scripts/login.js</code> (guarda en <code class="js-object">localStorage</code>)</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Inicio de Sesión Exitoso</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario ingresa credenciales válidas y accede al panel principal</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario ingresa su nombre de usuario en el campo "Usuario"</li>
+                                    <li>El usuario ingresa su contraseña en el campo "Contraseña"</li>
+                                    <li>(Opcional) El usuario marca la casilla "No cerrar sesión"</li>
+                                    <li>El usuario hace clic en el botón "Iniciar"</li>
+                                    <li>El sistema valida las credenciales (simulado)</li>
+                                    <li>El sistema guarda la información de sesión en <code class="js-object">localStorage</code></li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">main.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Intento de Inicio de Sesión con Campos Vacíos</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario intenta iniciar sesión sin ingresar credenciales</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario deja uno o ambos campos ("Usuario", "Contraseña") vacíos</li>
+                                    <li>El usuario hace clic en el botón "Iniciar"</li>
+                                    <li>El sistema (según <code class="file-name">login.js</code>) no procede con el guardado en <code class="js-object">localStorage</code> ni la redirección si los campos están vacíos (basado en <code class="js-variable">username && password</code>). Se requiere validación HTML <code class="html-attribute">required</code> en los inputs para una mejor UX</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Acceder a Recuperación de Contraseña</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario navega a la página de recuperación de contraseña</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el enlace "¿Olvidé mi contraseña?"</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">recuperar_contraseña.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-recuperar" class="file-documentation">
+                <h3>4.2. <code class="file-name">recuperar_contraseña.html</code> (Página de Recuperación de Contraseña)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite a los usuarios iniciar el proceso de recuperación de su contraseña.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Logo de la Universidad</li>
+                    <li>Formulario con campo para "Correo electrónico registrado"</li>
+                    <li>Botón "Enviar instrucciones"</li>
+                    <li>Enlace "Volver al inicio"</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Estilos definidos en <code class="file-path">styles/styles.css</code></li>
+                    <li>Lógica (hipotética) manejada por <code class="file-path">scripts/recover.js</code> (archivo no proporcionado)</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Solicitar Recuperación de Contraseña</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario ingresa su correo electrónico para recibir instrucciones de recuperación</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario ingresa su correo electrónico en el campo correspondiente</li>
+                                    <li>El usuario hace clic en el botón "Enviar instrucciones"</li>
+                                    <li>El sistema (hipotéticamente a través de <code class="file-name">recover.js</code>) procesa la solicitud. (Ej. Muestra un mensaje de confirmación)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Volver a Inicio de Sesión</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario regresa a la página de inicio de sesión</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el enlace "Volver al inicio"</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">index.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-main" class="file-documentation">
+                <h3>4.3. <code class="file-name">main.html</code> (Panel Principal / Dashboard)</h3>
+                <h4>Propósito:</h4>
+                <p>Actúa como el centro de navegación principal después del inicio de sesión, mostrando información relevante y accesos directos.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li><strong>Header:</strong> Logo, saludo al usuario (enlazado a perfil) y botón de cerrar sesión</li>
+                    <li><strong>Sidebar:</strong> Buscador, menú de navegación (Inicio, Asignaciones, Cursos, Cuenta Corriente, Perfil de Usuario)</li>
+                    <li><strong>Content Area:</strong>
+                        <ul>
+                            <li>Slider visual de imágenes (simulado)</li>
+                            <li>Tarjeta de información de pagos</li>
+                            <li>Sección de "Avisos Importantes" con varias tarjetas de noticias/alertas</li>
+                        </ul>
+                    </li>
+                    <li><strong>Footer:</strong> Información de copyright</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Estilos integrados en la etiqueta <code class="html-element">&lt;style&gt;&lt;/style&gt;</code> (originalmente en <code class="file-path">styles/stylesMain.css</code>)</li>
+                    <li>Utiliza Font Awesome para iconos y Google Fonts (Poppins)</li>
+                    <li>Incluye <code class="file-path">scripts/login.js</code> (para <code class="js-function">checkLogin()</code> y <code class="js-function">logout()</code>)</li>
+                    <li>Script inline para actualizar el año del footer y mostrar el nombre de usuario</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Visualizar Panel Principal</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario (Estudiante)</li>
+                            <li><strong>Descripción:</strong> El usuario ve la información general del dashboard, incluyendo avisos y el slider</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario accede a <code class="file-name">main.html</code> (después de un login exitoso)</li>
+                                    <li>El sistema muestra el header con el saludo y el logo</li>
+                                    <li>El sistema muestra la barra lateral con opciones de navegación</li>
+                                    <li>El sistema muestra el slider de imágenes, la información de pagos y los avisos importantes</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Navegar a una Sección desde Sidebar</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario selecciona una opción del menú lateral para ir a otra sección del portal</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en un enlace del menú lateral (ej. "Cursos", "Cuenta Corriente", "Perfil de Usuario")</li>
+                                    <li>El sistema redirige al usuario a la página HTML correspondiente (ej. <code class="file-name">cursos.html</code>)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Navegar al Perfil de Usuario desde Header</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario hace clic en el saludo de bienvenida para acceder a su perfil</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el texto "Bienvenido, [NombreUsuario]" en el header</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">perfil_usuario.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-04: Cerrar Sesión</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario finaliza su sesión en el portal</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Cerrar Sesión" (icono de salida) en el header</li>
+                                    <li>El sistema ejecuta la función <code class="js-function">logout()</code>, que elimina los datos de sesión de <code class="js-object">localStorage</code></li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">index.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-cuenta-corriente" class="file-documentation">
+                <h3>4.4. <code class="file-name">cuenta_corriente.html</code> (Página de Cuenta Corriente)</h3>
+                <h4>Propósito:</h4>
+                <p>Proporciona una vista general de la cuenta corriente del usuario y accesos a acciones relacionadas con pagos.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar rojo</li>
+                    <li>Título "Cuenta Corriente"</li>
+                    <li>Tarjeta "DATOS DEL USUARIO" con información básica</li>
+                    <li>Tarjeta "PAGO DE TARJETA" con enlace a <code class="file-name">pago_tarjeta.html</code></li>
+                    <li>Tarjeta "ESTADO DE CUENTA" con enlace a <code class="file-name">estado_cuenta.html</code></li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>No contiene JavaScript específico además del de Bootstrap</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Visualizar Información de Cuenta Corriente</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario accede para ver sus datos y las opciones de pago</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">cuenta_corriente.html</code></li>
+                                    <li>El sistema muestra los datos del usuario y las tarjetas de "Pago de Tarjeta" y "Estado de Cuenta"</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Acceder a Pago con Tarjeta</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario decide realizar un pago con tarjeta</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Ir a Pago de Tarjeta"</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">pago_tarjeta.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Acceder a Estado de Cuenta</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario desea consultar su historial de transacciones</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Ir a Estado de Cuenta"</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">estado_cuenta.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-pago-tarjeta" class="file-documentation">
+                <h3>4.5. <code class="file-name">pago_tarjeta.html</code> (Página de Pago con Tarjeta)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite al usuario seleccionar conceptos a pagar y realizar el pago mediante un formulario de tarjeta de crédito/débito.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Realizar Pago con Tarjeta"</li>
+                    <li>Layout de dos columnas:
+                        <ul>
+                            <li>Izquierda: Datos del usuario, tarjetas de "Cargos Pendientes a Pagar" (conceptos individuales seleccionables)</li>
+                            <li>Derecha (sticky): Tarjeta "Detalle de Pago" (muestra total y conceptos seleccionados), Tarjeta "Datos de la Tarjeta" (formulario de pago)</li>
+                        </ul>
+                    </li>
+                    <li>Footer con logos de tarjetas</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>Script inline para mostrar la fecha actual</li>
+                    <li>(Lógica de selección de cargos, cálculo de total y procesamiento de pago no implementada, pero la interfaz está lista)</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Visualizar Interfaz de Pago</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario accede a la página para realizar un pago</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">pago_tarjeta.html</code></li>
+                                    <li>El sistema muestra los datos del usuario, la lista de cargos pendientes, el detalle de pago (inicialmente vacío o con total Q0.00) y el formulario de tarjeta</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Seleccionar Conceptos a Pagar (Visual)</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario selecciona uno o más cargos pendientes para incluirlos en el pago</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Seleccionar" de un cargo pendiente</li>
+                                    <li>(Visualmente) El sistema debería actualizar la sección "Detalle de Pago" para reflejar el concepto añadido y el nuevo total. (Lógica JS no implementada)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Ingresar Datos de Tarjeta</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario completa el formulario con los datos de su tarjeta</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario llena los campos: Nombre del Titular, No. de Tarjeta, Fecha de Caducidad, CVV y Tipo de Tarjeta</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-04: Intentar Realizar Pago (Visual)</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario envía el formulario para procesar el pago</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Pagar Ahora"</li>
+                                    <li>(Visualmente) El sistema debería procesar el pago. (Lógica JS y backend no implementadas)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-estado-cuenta" class="file-documentation">
+                <h3>4.6. <code class="file-name">estado_cuenta.html</code> (Página de Estado de Cuenta)</h3>
+                <h4>Propósito:</h4>
+                <p>Muestra el historial de transacciones y el saldo actual de la cuenta del usuario, con opción de filtrar por fechas.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Estado de Cuenta"</li>
+                    <li>Tarjeta "Datos del Usuario"</li>
+                    <li>Tarjeta "Consultar por Fecha" con inputs de fecha inicio/fin y botón "Buscar"</li>
+                    <li>Tarjeta "Transacciones Recientes" con una tabla mostrando fecha, documento, descripción, cargo, abono y saldo</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>(Lógica de filtrado de transacciones no implementada, datos de tabla son estáticos)</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Consultar Estado de Cuenta</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario visualiza su historial de transacciones y saldo</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">estado_cuenta.html</code></li>
+                                    <li>El sistema muestra los datos del usuario, el formulario de filtro y la tabla con las transacciones recientes y el saldo actual</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Filtrar Transacciones por Fecha (Visual)</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario intenta filtrar las transacciones dentro de un rango de fechas</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario selecciona una "Fecha Inicio"</li>
+                                    <li>El usuario selecciona una "Fecha Fin"</li>
+                                    <li>El usuario hace clic en el botón "Buscar"</li>
+                                    <li>(Visualmente) El sistema debería actualizar la tabla de transacciones para mostrar solo aquellas dentro del rango especificado. (Lógica JS no implementada)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+            
+            <article id="vista-cursos" class="file-documentation">
+                <h3>4.7. <code class="file-name">cursos.html</code> (Mis Cursos Asignados)</h3>
+                <h4>Propósito:</h4>
+                <p>Muestra al estudiante los cursos en los que está actualmente inscrito, junto con detalles relevantes de cada uno.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Mis Cursos Asignados"</li>
+                    <li>Tarjeta "INFORMACIÓN DEL ESTUDIANTE" con nombre, carné y semestre</li>
+                    <li>Una serie de tarjetas, cada una representando un curso asignado. Cada tarjeta de curso muestra:
+                        <ul>
+                            <li>Nombre del curso</li>
+                            <li>Código, Profesor, Horario, Aula</li>
+                            <li>Botón "Ver Material del Curso"</li>
+                        </ul>
+                    </li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>No contiene JavaScript específico además del de Bootstrap. Datos de cursos son estáticos</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Visualizar Cursos Asignados</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Estudiante</li>
+                            <li><strong>Descripción:</strong> El estudiante consulta la lista de cursos en los que está inscrito</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El estudiante navega a <code class="file-name">cursos.html</code></li>
+                                    <li>El sistema muestra la información del estudiante</li>
+                                    <li>El sistema muestra una tarjeta por cada curso asignado, con sus detalles (nombre, profesor, horario, etc.)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Acceder a Material de un Curso (Visual)</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Estudiante</li>
+                            <li><strong>Descripción:</strong> El estudiante intenta acceder al material de estudio de un curso específico</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El estudiante hace clic en el botón "Ver Material del Curso" de una tarjeta de curso</li>
+                                    <li>(Visualmente) El sistema debería redirigir o mostrar el material del curso. (Funcionalidad de enlace no implementada, <code>&lt;a href="#"&gt;</code>)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-asignaciones" class="file-documentation">
+                <h3>4.8. <code class="file-name">asignaciones.html</code> (Página de Asignaciones y Carreras)</h3>
+                <h4>Propósito:</h4>
+                <p>Proporciona información sobre las carreras disponibles en la universidad y detalles sobre asignaciones académicas relevantes.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Proceso de Asignación y Carreras"</li>
+                    <li>Sección "Carreras Disponibles": Muestra tarjetas para diferentes carreras (Ingeniería en Sistemas, Administración de Empresas, Psicología Clínica) con una breve descripción y un botón "Más Información"</li>
+                    <li>Sección "ASIGNACIONES RELEVANTES": Muestra una lista de asignaciones importantes (Proyecto Final, Plan de Negocios, Estudio de Caso) con descripción, carrera asociada y fecha límite</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>No contiene JavaScript específico además del de Bootstrap. Datos son estáticos</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Consultar Carreras Disponibles</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario (Prospecto/Estudiante)</li>
+                            <li><strong>Descripción:</strong> El usuario revisa la oferta académica de la universidad</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">asignaciones.html</code></li>
+                                    <li>El sistema muestra la sección "Carreras Disponibles" con una tarjeta por cada carrera</li>
+                                    <li>El usuario lee las descripciones de las carreras</li>
+                                    <li>(Opcional) El usuario hace clic en "Más Información" en una carrera (enlace no funcional, <code>&lt;a href="#"&gt;</code>)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Consultar Asignaciones Relevantes</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario (Estudiante)</li>
+                            <li><strong>Descripción:</strong> El usuario revisa la lista de asignaciones importantes</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">asignaciones.html</code> o se desplaza a la sección correspondiente</li>
+                                    <li>El sistema muestra la tarjeta "ASIGNACIONES RELEVANTES" con una lista de ítems, cada uno detallando una asignación</li>
+                                    <li>(Opcional) El usuario hace clic en un ítem de asignación (enlace no funcional, <code>&lt;a href="#"&gt;</code>)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-perfil-usuario" class="file-documentation">
+                <h3>4.9. <code class="file-name">perfil_usuario.html</code> (Perfil de Usuario)</h3>
+                <h4>Propósito:</h4>
+                <p>Muestra la información detallada del usuario logueado, organizada en secciones, con opciones para editar cada sección.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Perfil de Usuario". Botón "Salir de la cuenta"</li>
+                    <li>Layout de cards en dos columnas (en pantallas grandes):
+                        <ul>
+                            <li>Card "INFORMACIÓN USUARIO": Datos personales, foto de perfil. Botón "Editar" (enlaza a <code class="file-name">editar-usuario.html</code>)</li>
+                            <li>Card "IDENTIFICACIONES LEGALES": DPI, Pasaporte, NIT, etc. Botón "Editar" (enlaza a <code class="file-name">editar-identificaciones.html</code>)</li>
+                            <li>Card "INFORMACIÓN ACADÉMICA Y ACCESO": Tipo de usuario, carné, idiomas, etc. Botón "Editar" (enlaza a <code class="file-name">editar-academica.html</code>)</li>
+                            <li>Card "CONTACTOS E INFO ADICIONAL": Teléfonos, correos, dirección, etc. Botón "Editar" (enlaza a <code class="file-name">editar-contactos.html</code>)</li>
+                        </ul>
+                    </li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline, con clases para <code>data-list</code> y <code>data-item</code></li>
+                    <li>Script inline para cargar dinámicamente toda la información del perfil desde <code class="js-object">localStorage</code> al cargar la página</li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Visualizar Perfil de Usuario</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario consulta su información personal, legal, académica y de contacto</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">perfil_usuario.html</code></li>
+                                    <li>El sistema carga y muestra los datos del usuario desde <code class="js-object">localStorage</code> en las tarjetas correspondientes</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Acceder a Edición de una Sección del Perfil</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario decide modificar una sección específica de su perfil</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Editar" de una de las tarjetas (ej. "INFORMACIÓN USUARIO")</li>
+                                    <li>El sistema redirige al usuario a la página de edición correspondiente (ej. <code class="file-name">editar-usuario.html</code>)</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Cerrar Sesión desde Perfil</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario finaliza su sesión desde la página de perfil</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Salir de la cuenta"</li>
+                                    <li>El sistema (a través de un enlace a <code class="file-name">index.html</code> o una función de logout) cierra la sesión y redirige a la página de login</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-editar-usuario" class="file-documentation">
+                <h3>4.10. <code class="file-name">editar-usuario.html</code> (Editar Información de Usuario)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite al usuario modificar sus datos personales y foto de perfil.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar (con enlace "Volver al Perfil"). Título "Editar Información de Usuario"</li>
+                    <li>Formulario dentro de una card "Datos Personales":
+                        <ul>
+                            <li>Campos para primer nombre, otros nombres, apellidos, nacionalidad, género (select), fecha de nacimiento, estado civil (select), tipo de persona (select), saludo, número de hijos, apellido de casado, nombre del cónyuge, religión</li>
+                            <li>Sección para cargar/previsualizar foto de perfil</li>
+                        </ul>
+                    </li>
+                    <li>Botones "Cancelar" (vuelve a <code class="file-name">perfil_usuario.html</code>) y "Guardar Cambios"</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>Script inline para:
+                        <ul>
+                            <li>Cargar los datos existentes del usuario desde <code class="js-object">localStorage</code> en los campos del formulario</li>
+                            <li>Permitir la previsualización de la imagen de perfil seleccionada</li>
+                            <li>Guardar los datos modificados (incluida la imagen como Data URL) en <code class="js-object">localStorage</code> y redirigir a <code class="file-name">perfil_usuario.html</code></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CU-EDITUSR-01: Cargar Datos para Edición</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario accede a la página y el sistema carga sus datos actuales para modificación</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">editar-usuario.html</code></li>
+                                    <li>El sistema ejecuta <code class="js-function">loadUserData()</code>, poblando los campos del formulario y la imagen de perfil con los datos de <code class="js-object">localStorage</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CU-EDITUSR-02: Modificar Datos Personales y Guardar</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario actualiza uno o más campos de su información personal y/o su foto de perfil</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario modifica los valores en los campos del formulario</li>
+                                    <li>(Opcional) El usuario selecciona una nueva imagen de perfil, la cual se previsualiza</li>
+                                    <li>El usuario hace clic en "Guardar Cambios"</li>
+                                    <li>El sistema ejecuta <code class="js-function">saveUserData()</code>, que recopila los datos del formulario, convierte la imagen a Data URL (si es nueva), guarda el objeto actualizado en <code class="js-object">localStorage</code> y redirige a <code class="file-name">perfil_usuario.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CU-EDITUSR-03: Cancelar Edición</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario decide no guardar los cambios y volver al perfil</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el botón "Cancelar"</li>
+                                    <li>El sistema redirige al usuario a <code class="file-name">perfil_usuario.html</code> sin guardar cambios</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-editar-identificaciones" class="file-documentation">
+                <h3>4.11. <code class="file-name">editar-identificaciones.html</code> (Editar Identificaciones Legales)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite al usuario actualizar sus números de identificación y los archivos asociados, así como otros datos legales.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Editar Identificaciones Legales"</li>
+                    <li>Card "Documentos de Identificación": Campos para número y subida de archivo para DPI, Fé de Edad, Pasaporte, Cédula, y solo subida de archivo para RTU. Muestra el nombre del archivo actual o del nuevo seleccionado</li>
+                    <li>Card "Otros Datos Legales": Campos para NIT, tipo de licencia, régimen tributario, IGSS, número de seguro, tipo de sangre</li>
+                    <li>Botones "Cancelar" y "Guardar Cambios"</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>Script inline para:
+                        <ul>
+                            <li>Cargar datos y nombres de archivo desde <code class="js-object">localStorage</code></li>
+                            <li>Actualizar la información del archivo mostrado cuando se selecciona uno nuevo</li>
+                            <li>Guardar los números y nombres de archivo (no el archivo en sí) en <code class="js-object">localStorage</code></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Cargar Datos de Identificaciones para Edición</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El sistema carga la información legal actual del usuario</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">editar-identificaciones.html</code></li>
+                                    <li>El sistema ejecuta <code class="js-function">loadLegalData()</code>, poblando los campos y la información de archivos desde <code class="js-object">localStorage</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Modificar Datos de Identificación y Guardar</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario actualiza números de identificación, sube nuevos archivos (o cambia los existentes) y modifica otros datos legales</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario modifica los campos de texto</li>
+                                    <li>(Opcional) El usuario selecciona nuevos archivos para los documentos. El sistema actualiza el texto "file-info" para mostrar el nombre del nuevo archivo</li>
+                                    <li>El usuario hace clic en "Guardar Cambios"</li>
+                                    <li>El sistema ejecuta <code class="js-function">saveLegalData()</code>, que recopila todos los datos (incluyendo los nombres de los archivos seleccionados o los previamente guardados si no se cambió el archivo) y los guarda en <code class="js-object">localStorage</code></li>
+                                    <li>El sistema redirige a <code class="file-name">perfil_usuario.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-editar-academica" class="file-documentation">
+                <h3>4.12. <code class="file-name">editar-academica.html</code> (Editar Información Académica y Acceso)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite al usuario modificar su información relacionada con el acceso al sistema, datos académicos, idiomas, estudios actuales, títulos y CV.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Editar Información Académica y Acceso"</li>
+                    <li>Múltiples cards para organizar la información:
+                        <ul>
+                            <li>"Acceso y Datos Generales": Tipo de usuario, carnés, idioma del sistema, usuario, contraseña (con opción de ver/ocultar)</li>
+                            <li>"Idiomas que Maneja": Lista dinámica para añadir/quitar idiomas con porcentaje escrito y hablado</li>
+                            <li>"Formación y Estudios": Último grado, colegiado activo, checkbox "Estudia actualmente" que muestra/oculta campos para detalles del estudio</li>
+                            <li>"Títulos y Diplomas": Lista dinámica para subir archivos de títulos</li>
+                            <li>"Curriculum Vitae (General)": Campo para subir archivo de CV</li>
+                        </ul>
+                    </li>
+                    <li>Botones "Cancelar" y "Guardar Cambios"</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>Script inline complejo para:
+                        <ul>
+                            <li>Cargar todos los datos académicos desde <code class="js-object">localStorage</code></li>
+                            <li>Manejar la adición y eliminación dinámica de filas para idiomas y títulos</li>
+                            <li>Mostrar/ocultar detalles de estudio según el checkbox</li>
+                            <li>Manejar la visibilidad de la contraseña</li>
+                            <li>Mostrar información del archivo CV actual</li>
+                            <li>Guardar todos los datos (incluyendo nombres de archivos) en <code class="js-object">localStorage</code></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Cargar Datos Académicos para Edición</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El sistema carga la información académica y de acceso actual del usuario</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">editar-academica.html</code></li>
+                                    <li>El sistema ejecuta <code class="js-function">loadAcademicData()</code>, poblando todos los campos, listas dinámicas y estados de checkbox desde <code class="js-object">localStorage</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Añadir/Quitar un Idioma</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario gestiona la lista de idiomas que maneja</li>
+                            <li><strong>Flujo Principal (Añadir):</strong>
+                                <ol>
+                                    <li>El usuario hace clic en "Añadir Idioma"</li>
+                                    <li>El sistema añade una nueva fila vacía para ingresar un idioma</li>
+                                </ol>
+                            </li>
+                            <li><strong>Flujo Principal (Quitar):</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el icono de papelera de una fila de idioma (si hay más de uno)</li>
+                                    <li>El sistema elimina la fila correspondiente</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Actualizar Información de Estudios Actuales</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario indica si estudia actualmente y proporciona detalles</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario marca/desmarca el checkbox "Estudia actualmente"</li>
+                                    <li>Si se marca, el sistema muestra los campos para "¿Qué estudia?", "Lugar de estudio", "Horario de estudio". El usuario los completa</li>
+                                    <li>Si se desmarca, el sistema oculta dichos campos</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-04: Modificar Datos Académicos y Guardar</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario actualiza su información académica, incluyendo listas dinámicas y subida de archivos</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario modifica los campos deseados</li>
+                                    <li>El usuario añade/quita/modifica idiomas y títulos</li>
+                                    <li>(Opcional) El usuario sube un nuevo archivo de CV</li>
+                                    <li>El usuario hace clic en "Guardar Cambios"</li>
+                                    <li>El sistema ejecuta <code class="js-function">saveAcademicData()</code>, que recopila todos los datos (incluyendo nombres de archivos) y los guarda en <code class="js-object">localStorage</code></li>
+                                    <li>El sistema redirige a <code class="file-name">perfil_usuario.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+
+            <article id="vista-editar-contactos" class="file-documentation">
+                <h3>4.13. <code class="file-name">editar-contactos.html</code> (Editar Contactos e Información Adicional)</h3>
+                <h4>Propósito:</h4>
+                <p>Permite al usuario gestionar sus direcciones, métodos de contacto (teléfonos, correos), contactos de emergencia, vehículos e información sobre alergias/enfermedades.</p>
+                <h4>Elementos Clave:</h4>
+                <ul>
+                    <li>Navbar estándar. Título "Editar Contactos e Información Adicional"</li>
+                    <li>Múltiples cards para cada sección:
+                        <ul>
+                            <li>"Direcciones": Lista dinámica para añadir/quitar direcciones (tipo, dirección, zona, país, departamento, municipio). Los municipios se cargan dinámicamente según el departamento</li>
+                            <li>"Métodos de Contacto": Subsecciones para Teléfonos y Correos Electrónicos (listas dinámicas con opción de marcar como principal)</li>
+                            <li>"Contactos de Emergencia": Lista dinámica (nombre, relación, teléfonos)</li>
+                            <li>"Vehículos": Lista dinámica (placa, marca, modelo, color)</li>
+                            <li>"Enfermedad o Alergias": Textarea para descripción</li>
+                        </ul>
+                    </li>
+                    <li>Botones "Cancelar" y "Guardar Cambios"</li>
+                    <li>Footer estándar</li>
+                </ul>
+                <h4>Estilos y Scripts:</h4>
+                <ul>
+                    <li>Utiliza Bootstrap 5 y estilos unificados inline</li>
+                    <li>Script inline extenso para:
+                        <ul>
+                            <li>Cargar todos los datos de contacto desde <code class="js-object">localStorage</code></li>
+                            <li>Manejar la adición y eliminación dinámica de filas para direcciones, teléfonos, correos, contactos de emergencia y vehículos</li>
+                            <li>Poblar dinámicamente los select de municipios basados en el departamento seleccionado</li>
+                            <li>Guardar todos los datos en <code class="js-object">localStorage</code></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>Casos de Uso Principales:</h4>
+                <ul>
+                    <li>
+                        <strong>CASO DE USO-01: Cargar Datos de Contacto para Edición</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El sistema carga la información de contacto actual del usuario</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario navega a <code class="file-name">editar-contactos.html</code></li>
+                                    <li>El sistema ejecuta <code class="js-function">loadContactData()</code>, poblando todos los campos y listas dinámicas desde <code class="js-object">localStorage</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-02: Añadir/Quitar una Dirección</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario gestiona su lista de direcciones</li>
+                            <li><strong>Flujo Principal (Añadir):</strong>
+                                <ol>
+                                    <li>El usuario hace clic en "Añadir Dirección"</li>
+                                    <li>El sistema añade una nueva fila con campos para una dirección</li>
+                                    <li>El usuario selecciona un departamento; el sistema actualiza el select de municipios correspondientes</li>
+                                </ol>
+                            </li>
+                            <li><strong>Flujo Principal (Quitar):</strong>
+                                <ol>
+                                    <li>El usuario hace clic en el icono de papelera de una fila de dirección</li>
+                                    <li>El sistema elimina la fila</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>CASO DE USO-03: Modificar Datos de Contacto y Guardar</strong>
+                        <ul>
+                            <li><strong>Actor:</strong> Usuario</li>
+                            <li><strong>Descripción:</strong> El usuario actualiza su información de contacto, incluyendo listas dinámicas</li>
+                            <li><strong>Flujo Principal:</strong>
+                                <ol>
+                                    <li>El usuario modifica los campos deseados en las diferentes secciones</li>
+                                    <li>El usuario añade/quita/modifica direcciones, teléfonos, correos, etc</li>
+                                    <li>El usuario hace clic en "Guardar Cambios"</li>
+                                    <li>El sistema ejecuta <code class="js-function">saveContactData()</code>, que recopila todos los datos y los guarda en <code class="js-object">localStorage</code></li>
+                                    <li>El sistema redirige a <code class="file-name">perfil_usuario.html</code></li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </article>
+            
+        </section>
+
+        <section id="archivos-css" class="doc-section">
+            <h2>5. Archivos CSS Principales</h2>
+            <article class="file-documentation">
+                <h3>5.1. <code class="file-name">styles/styles.css</code></h3>
+                <h4>Propósito:</h4>
+                <p>Define la apariencia de las páginas <code class="file-name">index.html</code> (Inicio de Sesión) y <code class="file-name">recuperar_contraseña.html</code>.</p>
+                <h4>Estilo Clave:</h4>
+                <p>Diseño centrado con un contenedor de formulario blanco sobre un fondo de color institucional (<code class="css-value">#a30000</code> o similar), proporcionando un aspecto limpio y profesional para la autenticación.</p>
+            </article>
+            <article class="file-documentation">
+                <h3>5.2. Estilos Integrados (Bootstrap y Personalizados)</h3>
+                <h4>Propósito:</h4>
+                <p>Para las vistas <code class="file-name">main.html</code>, <code class="file-name">cuenta_corriente.html</code>, <code class="file-name">cursos.html</code>, <code class="file-name">asignaciones.html</code>, <code class="file-name">estado_cuenta.html</code>, <code class="file-name">pago_tarjeta.html</code>, <code class="file-name">perfil_usuario.html</code> y todas sus sub-páginas de edición (<code class="file-name">editar-*.html</code>), los estilos principales se basan en Bootstrap 5, con personalizaciones clave integradas directamente en etiquetas <code class="html-element">&lt;style&gt;&lt;/style&gt;</code> dentro de cada archivo HTML.</p>
+                <h4>Estilo Clave Unificado:</h4>
+                <ul>
+                    <li>Navbar superior de color rojo institucional (<code class="css-value">#ab0a0a</code>)</li>
+                    <li>Fondo general de página gris claro (<code class="css-value">bg-light</code> o <code class="css-value">#f4f6f9</code>)</li>
+                    <li>Uso extensivo de componentes de Bootstrap como tarjetas (<code class="css-class">.card</code>) con encabezados blancos y sombras sutiles para organizar el contenido</li>
+                    <li>Tipografía Poppins para <code class="file-name">main.html</code></li>
+                    <li>Iconografía de Font Awesome</li>
+                    <li>Layout responsivo gracias a Bootstrap</li>
+                </ul>
+                <p><strong>Nota:</strong> El archivo <code class="file-path">styles/asignaciones_styles_v2.css</code> existe en la estructura de carpetas pero no se utiliza en la versión final de <code class="file-name">asignaciones.html</code>, ya que esta última adoptó los estilos unificados inline.</p>
+            </article>
+        </section>
+
+        <section id="archivos-js" class="doc-section">
+            <h2>6. Archivos JavaScript Principales</h2>
+            <article class="file-documentation">
+                <h3>6.1. <code class="file-name">scripts/login.js</code></h3>
+                <h4>Funcionalidad Principal:</h4>
+                <ul>
+                    <li>Manejo del formulario de inicio de sesión en <code class="file-name">index.html</code> (guardado de datos en <code class="js-object">localStorage</code>)</li>
+                    <li>Función <code class="js-function">checkLogin()</code> para verificar la sesión en <code class="file-name">main.html</code> y mostrar el nombre de usuario</li>
+                    <li>Función <code class="js-function">logout()</code> para cerrar la sesión</li>
+                </ul>
+            </article>
+            <article class="file-documentation">
+                <h3>6.2. Scripts Inline (en vistas de Perfil y Edición)</h3>
+                <h4>Funcionalidad Principal:</h4>
+                <p>Las páginas <code class="file-name">perfil_usuario.html</code>, <code class="file-name">editar-usuario.html</code>, <code class="file-name">editar-identificaciones.html</code>, <code class="file-name">editar-academica.html</code>, y <code class="file-name">editar-contactos.html</code> contienen JavaScript embebido para:</p>
+                <ul>
+                    <li>Cargar datos desde <code class="js-object">localStorage</code> en los campos de visualización o formularios</li>
+                    <li>Guardar los datos modificados de vuelta a <code class="js-object">localStorage</code></li>
+                    <li>Manejar la interactividad de elementos dinámicos (ej. añadir/quitar idiomas, títulos, direcciones)</li>
+                    <li>Gestionar la previsualización de imágenes y la información de archivos</li>
+                </ul>
+                <p class="note">(Nota: <code class="file-name">scripts/recover.js</code>, mencionado en la documentación original para <code class="file-name">recuperar_contraseña.html</code>, no fue proporcionado y su funcionalidad es hipotética).</p>
+            </article>
+        </section>
+
+        <section id="resumen-mejoras" class="doc-section summary-section">
+            <h2>7. Resumen General de Mejoras Implementadas</h2>
+            <ul>
+                <li><strong>Diseño Unificado y Moderno:</strong> Se estableció una paleta de colores consistente (rojo institucional <code class="css-value">#ab0a0a</code>, blanco y grises claros) y un estilo de tarjetas (<code class="css-class">.card</code> con sombra) para la mayoría de las vistas internas, utilizando Bootstrap 5 como base</li>
+                <li><strong>Consistencia Visual:</strong> El navbar superior y el footer son consistentes en todas las páginas internas</li>
+                <li><strong>Mejora de la Experiencia de Usuario (UX):</strong>
+                    <ul>
+                        <li>Navegación más clara e intuitiva</li>
+                        <li>Formularios mejor estructurados y más fáciles de usar (ej. uso de <code>&lt;select&gt;</code> en lugar de inputs de texto)</li>
+                        <li>Organización de la información en secciones lógicas mediante tarjetas</li>
+                        <li>Diseño responsivo para una mejor visualización en diferentes dispositivos</li>
+                    </ul>
+                </li>
+                <li><strong>Claridad en la Presentación de Información:</strong> Espaciado mejorado y uso de iconografía para facilitar la comprensión</li>
+                <li><strong>Funcionalidad de Perfil Mejorada:</strong> Las vistas de perfil y edición son más robustas y permiten una gestión detallada de la información del usuario con persistencia en <code class="js-object">localStorage</code></li>
+                <li><strong>Panel Principal (Dashboard) Rediseñado:</strong> La vista <code class="file-name">main.html</code> ahora presenta un diseño más profesional con sidebar, header y contenido principal bien diferenciados, incluyendo un slider visual y tarjetas de avisos</li>
+            </ul>
+        </section>
+
+        <footer class="doc-footer">
+            <p>© 2024 Documentación del Proyecto Portal Estudiantil USPG. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+</body>
+</html>
+```

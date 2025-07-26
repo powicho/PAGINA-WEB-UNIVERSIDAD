@@ -1,0 +1,96 @@
+/* Configuración global */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #a30000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor del login */
+.login-container {
+    width: 320px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+/* Campos de entrada */
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Checkbox */
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #a30000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #800000;
+}
+
+/* Enlace "Olvidé mi contraseña" */
+.forgot-password {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #a30000;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #800000;
+}
+
+/* Ajuste adicional para "No cerrar sesión" */
+.remember-me {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin: 10px 0;
+    gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+}
+

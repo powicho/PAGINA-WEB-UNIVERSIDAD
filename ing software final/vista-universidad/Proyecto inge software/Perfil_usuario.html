@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Usuario - Universidad San Pablo</title>
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+        rel="stylesheet"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" 
+    />
+    <style>
+        /* Estilos base de cuenta_corriente.html */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .custom-red {
+            background-color: #ab0a0a !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card { 
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            border: none; 
+        }
+        .card-header-icon { 
+            font-size: 1.2em;
+        }
+
+        /* Estilos específicos para perfil_usuario.html */
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 1.5rem; 
+        }
+
+        .data-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem; /* AUMENTADO LIGERAMENTE el gap para más espacio vertical */
+        }
+        .data-item strong {
+            display: block; 
+            margin-bottom: 0.2rem; /* AUMENTADO LIGERAMENTE */
+            color: #343a40; 
+            font-weight: 600; 
+        }
+        .data-item p, .data-item div, .data-item ul {
+            margin: 0;
+            padding: 0;
+            font-size: 0.95rem;
+            color: #495057; 
+            line-height: 1.5; /* AÑADIDO: Mejora legibilidad vertical del texto */
+        }
+        .data-item ul {
+            list-style-position: inside; 
+            padding-left: 0.5rem; 
+        }
+        .data-item .file-name {
+            font-size: 0.85em;
+            color: #6c757d; 
+            display: block; 
+            margin-top: 0.1rem;
+        }
+        .profile-image-container {
+            text-align: center;
+            padding-left: 1rem; /* AÑADIDO: Para separar un poco la imagen de los textos en la misma card */
+        }
+        .profile-image {
+             max-width: 170px; 
+             height: auto;
+             border: 1px solid #dee2e6; 
+        }
+        .card-header .btn-edit { 
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+        }
+        .text-muted.small {
+            font-style: italic;
+        }
+        .card-body { /* AUMENTADO LIGERAMENTE el padding del card-body */
+            padding: 1.5rem !important; 
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- Navbar (Estilo cuenta_corriente.html) -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="main.html">
+            <i class="fas fa-university me-2"></i>Universidad San Pablo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="main.html"><i class="fas fa-home me-1"></i>Inicio</a></li>
+            
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="perfil_usuario.html"><i class="fas fa-user me-1"></i>Perfil</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<main class="container-xl my-4 my-lg-5 flex-grow-1"> 
+    <div class="profile-header">
+        <h1 class="display-5 text-dark-emphasis">
+            <i class="fas fa-id-card me-2" style="color: #ab0a0a;"></i>Perfil de Usuario
+        </h1>
+        <a href="index.html" class="btn btn-danger"><i class="fas fa-sign-out-alt me-2"></i>Salir de la cuenta</a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-lg-2 g-4">
+
+        <!-- Card: INFORMACIÓN USUARIO -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white text-dark-emphasis py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-user-circle me-2 text-primary card-header-icon"></i>INFORMACIÓN USUARIO</h5>
+                    <a href="editar-usuario.html" class="btn btn-outline-primary btn-sm btn-edit"><i class="fas fa-pencil-alt me-1"></i>Editar</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-7 datos-perfil"> 
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="data-list">
+                                        <div class="data-item"><strong>Primer Nombre:</strong><p id="displayPrimerNombre"></p></div>
+                                        <div class="data-item"><strong>Otros Nombres:</strong><p id="displayOtrosNombres"></p></div>
+                                        <div class="data-item"><strong>Primer Apellido:</strong><p id="displayPrimerApellido"></p></div>
+                                        <div class="data-item"><strong>Otros Apellidos:</strong><p id="displayOtrosApellidos"></p></div>
+                                        <div class="data-item"><strong>Nacionalidad:</strong><p id="displayNacionalidad"></p></div>
+                                        <div class="data-item"><strong>Género:</strong><p id="displayGenero"></p></div>
+                                        <div class="data-item"><strong>Fecha Nacimiento:</strong><p id="displayFechaNacimiento"></p></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="data-list">
+                                        <div class="data-item"><strong>Estado civil:</strong><p id="displayEstadoCivil"></p></div>
+                                        <div class="data-item"><strong>Tipo de persona:</strong><p id="displayTipoPersona"></p></div>
+                                        <div class="data-item"><strong>Saludo:</strong><p id="displaySaludo"></p></div>
+                                        <div class="data-item"><strong>Número de hijos:</strong><p id="displayNumHijos"></p></div>
+                                        <div class="data-item"><strong>Apellido casado/a:</strong><p id="displayApellidoCasado"></p></div>
+                                        <div class="data-item"><strong>Nombre cónyuge:</strong><p id="displayNombreConyuge"></p></div>
+                                        <div class="data-item"><strong>Religión:</strong><p id="displayReligion"></p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 profile-image-container mt-3 mt-md-0"> 
+                            <img id="displayProfileImage" src="images/defaultUserIcon.png" class="img-thumbnail profile-image" alt="Foto de perfil">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: IDENTIFICACIONES LEGALES -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white text-dark-emphasis py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-id-badge me-2 text-success card-header-icon"></i>IDENTIFICACIONES LEGALES</h5>
+                    <a href="editar-identificaciones.html" class="btn btn-outline-primary btn-sm btn-edit"><i class="fas fa-pencil-alt me-1"></i>Editar</a>
+                </div>
+                <div class="card-body"> 
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>DPI:</strong><p id="displayDpiNumber"></p><p id="displayDpiFile" class="file-name"></p></div>
+                                <div class="data-item"><strong>Fé de Edad:</strong><p id="displayFeEdadNumber"></p><p id="displayFeEdadFile" class="file-name"></p></div>
+                                <div class="data-item"><strong>Pasaporte:</strong><p id="displayPasaporteNumber"></p><p id="displayPasaporteFile" class="file-name"></p></div>
+                                <div class="data-item"><strong>Cédula:</strong><p id="displayCedulaNumber"></p><p id="displayCedulaFile" class="file-name"></p></div>
+                                <div class="data-item"><strong>RTU:</strong><p id="displayRtuFile" class="file-name"></p></div>
+                                <div class="data-item"><strong>NIT:</strong><p id="displayNit"></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>Tipo licencia:</strong><p id="displayTipoLicencia"></p></div>
+                                <div class="data-item"><strong>Régimen Tributario:</strong><p id="displayRegimenTributario"></p></div>
+                                <div class="data-item"><strong>Afiliación IGSS:</strong><p id="displayIgss"></p></div>
+                                <div class="data-item"><strong>Número seguro:</strong><p id="displayNumSeguro"></p></div>
+                                <div class="data-item"><strong>Tipo sangre:</strong><p id="displayTipoSangre"></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: INFORMACIÓN ACADÉMICA Y ACCESO -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white text-dark-emphasis py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-user-graduate me-2 text-info card-header-icon"></i>INFORMACIÓN ACADÉMICA Y ACCESO</h5>
+                    <a href="editar-academica.html" class="btn btn-outline-primary btn-sm btn-edit"><i class="fas fa-pencil-alt me-1"></i>Editar</a>
+                </div>
+                <div class="card-body"> 
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>Tipo usuario:</strong><p id="displayTipoUsuario"></p></div>
+                                <div class="data-item"><strong>Carné (Actual):</strong><p id="displayCarneActual"></p></div>
+                                <div class="data-item"><strong>Usuario (Nombre):</strong><p id="displayUsuarioNombre"></p></div>
+                                <div class="data-item"><strong>Contraseña:</strong><p>******</p></div>
+                                <div class="data-item"><strong>Otros carné:</strong><p id="displayOtrosCarne"></p></div>
+                                <div class="data-item"><strong>Idioma Sistema:</strong><p id="displayIdiomaSistema"></p></div>
+                                <div class="data-item"><strong>Idiomas que maneja:</strong><ul id="displayIdiomasList"></ul></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>Último grado:</strong><p id="displayUltimoGrado"></p></div>
+                                <div class="data-item"><strong>Colegiado Activo:</strong><p id="displayColegiadoActivo"></p></div>
+                                <div class="data-item"><strong>Estudia Actualmente:</strong><p id="displayEstudiaActualmenteBool" class="mb-0"></p><div id="displayEstudiaDetalles" class="small text-muted"></div></div>
+                                <div class="data-item"><strong>Títulos:</strong><ul id="displayTitulosList"></ul></div>
+                                <div class="data-item"><strong>Curriculum Vitae:</strong><p id="displayCv" class="file-name"></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: CONTACTOS E INFO ADICIONAL -->
+        <div class="col">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white text-dark-emphasis py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-address-book me-2 text-warning card-header-icon"></i>CONTACTOS E INFO ADICIONAL</h5>
+                    <a href="editar-contactos.html" class="btn btn-outline-primary btn-sm btn-edit"><i class="fas fa-pencil-alt me-1"></i>Editar</a>
+                </div>
+                <div class="card-body"> 
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>Teléfonos Contacto:</strong><div id="displayTelefonosContacto"></div></div>
+                                <div class="data-item"><strong>Correos Contacto:</strong><div id="displayCorreosContacto"></div></div>
+                                <div class="data-item"><strong>Teléfonos Emergencia:</strong><div id="displayTelefonosEmergencia"></div></div>
+                                <div class="data-item"><strong>Dirección:</strong><div id="displayDireccion"></div></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="data-list">
+                                <div class="data-item"><strong>Enfermedad/Alergias:</strong><p id="displayEnfermedadesAlergias"></p></div>
+                                <div class="data-item"><strong>Vehículos:</strong><div id="displayVehiculos"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+</main>
+
+<!-- Pie de página -->
+<footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+    <p class="mb-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const defaultPlaceholder = 'No proporcionado';
+
+        function setTextContent(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = value ? value : defaultPlaceholder;
+                 if(element.classList.contains('file-name')) { 
+                     element.classList.toggle('file-name', !!value); 
+                 }
+            }
+        }
+        
+        const userData = JSON.parse(localStorage.getItem('userProfileData')) || {};
+        setTextContent('displayPrimerNombre', userData.primerNombre);
+        setTextContent('displayOtrosNombres', userData.otrosNombres);
+        setTextContent('displayPrimerApellido', userData.primerApellido);
+        setTextContent('displayOtrosApellidos', userData.otrosApellidos);
+        setTextContent('displayNacionalidad', userData.nacionalidad);
+        setTextContent('displayGenero', userData.genero);
+        setTextContent('displayFechaNacimiento', userData.fechaNacimiento);
+        setTextContent('displayEstadoCivil', userData.estadoCivil);
+        setTextContent('displayTipoPersona', userData.tipoPersona);
+        setTextContent('displaySaludo', userData.saludo);
+        setTextContent('displayNumHijos', userData.numHijos);
+        setTextContent('displayApellidoCasado', userData.apellidoCasado);
+        setTextContent('displayNombreConyuge', userData.nombreConyuge);
+        setTextContent('displayReligion', userData.religion);
+        const profileImageElement = document.getElementById('displayProfileImage');
+        if (userData.profileImageUrl && profileImageElement) {
+             profileImageElement.src = userData.profileImageUrl;
+        } else if (profileImageElement) {
+             profileImageElement.src = 'images/defaultUserIcon.png'; 
+        }
+
+        const legalData = JSON.parse(localStorage.getItem('userLegalData')) || { documents: {}, otherData: {} };
+        const documents = legalData.documents || {};
+        const otherData = legalData.otherData || {};
+
+        const displayDocInfo = (docType, numberId, fileId) => {
+            const docInfo = documents[docType] || {};
+            const numberEl = numberId ? document.getElementById(numberId) : null;
+            const fileEl = fileId ? document.getElementById(fileId) : null;
+            if (numberEl) {
+                 numberEl.textContent = docInfo.number ? docInfo.number : defaultPlaceholder;
+            }
+            if (fileEl) {
+                 fileEl.textContent = docInfo.fileName ? docInfo.fileName : ''; 
+                 fileEl.className = docInfo.fileName ? 'file-name' : ''; 
+            }
+        };
+
+        displayDocInfo('dpi', 'displayDpiNumber', 'displayDpiFile');
+        displayDocInfo('feEdad', 'displayFeEdadNumber', 'displayFeEdadFile');
+        displayDocInfo('pasaporte', 'displayPasaporteNumber', 'displayPasaporteFile');
+        displayDocInfo('cedula', 'displayCedulaNumber', 'displayCedulaFile');
+        displayDocInfo('rtu', null, 'displayRtuFile'); 
+
+        setTextContent('displayNit', otherData.nit);
+        setTextContent('displayTipoLicencia', otherData.tipoLicencia);
+        setTextContent('displayRegimenTributario', otherData.regimenTributario);
+        setTextContent('displayIgss', otherData.igss);
+        setTextContent('displayNumSeguro', otherData.numSeguro);
+        setTextContent('displayTipoSangre', otherData.tipoSangre);
+
+        const academicData = JSON.parse(localStorage.getItem('userAcademicData')) || {};
+        setTextContent('displayTipoUsuario', academicData.tipoUsuario);
+        setTextContent('displayCarneActual', academicData.carneActual);
+        setTextContent('displayUsuarioNombre', academicData.usuarioNombre);
+        setTextContent('displayOtrosCarne', academicData.otrosCarne);
+        setTextContent('displayUltimoGrado', academicData.ultimoGrado);
+        setTextContent('displayColegiadoActivo', academicData.colegiadoActivo);
+        
+        const cvElement = document.getElementById('displayCv');
+        if (cvElement) {
+            setTextContent('displayCv', academicData.cvFileName);
+        }
+
+        const idiomaSistemaMap = { 'es': 'Español', 'en': 'Inglés' };
+        setTextContent('displayIdiomaSistema', idiomaSistemaMap[academicData.idiomaSistema] || academicData.idiomaSistema);
+
+        const idiomasListElement = document.getElementById('displayIdiomasList');
+        const languageOptions = [ { value: "es", text: "Español" }, { value: "en", text: "Inglés" }, { value: "fr", text: "Francés" }, { value: "de", text: "Alemán" }, { value: "pt", text: "Portugués" }, { value: "it", text: "Italiano" }, { value: "other", text: "Otro" }];
+        if(idiomasListElement) {
+            idiomasListElement.innerHTML = '';
+            if (academicData.languages && academicData.languages.length > 0) {
+                academicData.languages.forEach(lang => {
+                    const langText = languageOptions.find(opt => opt.value === lang.lang)?.text || lang.lang;
+                    const li = document.createElement('li');
+                    const writtenText = lang.written ? `${lang.written}%` : 'N/A';
+                    const spokenText = lang.spoken ? `${lang.spoken}%` : 'N/A';
+                    li.textContent = `${langText} (Escrito: ${writtenText} - Hablado: ${spokenText})`;
+                    idiomasListElement.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = defaultPlaceholder;
+                idiomasListElement.appendChild(li);
+            }
+        }
+
+        const estudiaBoolElement = document.getElementById('displayEstudiaActualmenteBool');
+        const estudiaDetallesElement = document.getElementById('displayEstudiaDetalles');
+        if(estudiaBoolElement) {
+             estudiaBoolElement.textContent = academicData.estudiaActualmenteBool ? 'Sí' : 'No';
+        }
+        if(estudiaDetallesElement) {
+            estudiaDetallesElement.innerHTML = ''; 
+            if (academicData.estudiaActualmenteBool) {
+                 const displayDetail = (label, value) => `${label}: ${value ? value : defaultPlaceholder}<br>`;
+                 estudiaDetallesElement.innerHTML =
+                     displayDetail('Qué', academicData.estudiaQue) +
+                     displayDetail('Lugar', academicData.estudiaLugar) +
+                     displayDetail('Horario', academicData.estudiaHorario).replace(/<br>$/,'');
+            } else {
+                 estudiaDetallesElement.innerHTML = ''; 
+            }
+        }
+
+        const titulosListElement = document.getElementById('displayTitulosList');
+         if(titulosListElement) {
+             titulosListElement.innerHTML = '';
+             if (academicData.titles && academicData.titles.length > 0) {
+                 academicData.titles.forEach(title => {
+                     const li = document.createElement('li');
+                     li.textContent = title.fileName ? title.fileName : defaultPlaceholder;
+                     if (title.fileName) {
+                        li.className = 'file-name';
+                     }
+                     titulosListElement.appendChild(li);
+                 });
+             } else {
+                 const li = document.createElement('li');
+                 li.textContent = defaultPlaceholder;
+                 titulosListElement.appendChild(li);
+             }
+         }
+
+        const contactData = JSON.parse(localStorage.getItem('userContactData')) || {};
+        const renderFormattedList = (elementId, items, formatItemFn, placeholder) => {
+            const container = document.getElementById(elementId);
+            if (!container) {
+                return;
+            }
+            container.innerHTML = ''; 
+            if (items && items.length > 0) {
+                const listHTML = items.map(item => `<div>${formatItemFn(item)}</div>`).join('');
+                container.innerHTML = listHTML;
+            } else {
+                 container.innerHTML = `<span class="text-muted small">${placeholder}</span>`;
+            }
+        };
+
+        // Simulación de departmentsData para que el script no falle si no está definido globalmente
+        const departmentsData = {
+             "GT": { name: "Guatemala", municipalities: ["Guatemala", "Villa Nueva", "Mixco", "Amatitlán", "Villa Canales"] },
+             "ES": { name: "Escuintla", municipalities: ["Escuintla", "San José", "Masagua", "Tiquisate", "La Democracia"] },
+             "SA": { name: "Sacatepéquez", municipalities: ["Antigua Guatemala", "Jocotenango", "Sumpango", "Ciudad Vieja"] },
+             // ... Añadir más departamentos y municipios de Guatemala
+        };
+
+        const addresses = contactData.addresses || [];
+        const phones = contactData.phoneNumbers || [];
+        const emails = contactData.emailAddresses || [];
+        const emergencies = contactData.emergencyContacts || [];
+        const vehicles = contactData.vehicles || [];
+        const allergies = contactData.allergies;
+
+        renderFormattedList('displayTelefonosContacto', phones, ph => {
+            return `${ph.number || defaultPlaceholder} ${ph.isPrimary ? '<span class="badge bg-secondary ms-1">Principal</span>' : ''}`;
+        }, defaultPlaceholder);
+        renderFormattedList('displayCorreosContacto', emails, em => {
+            return `${em.email || defaultPlaceholder} ${em.isPrimary ? '<span class="badge bg-secondary ms-1">Principal</span>' : ''}`;
+        }, defaultPlaceholder);
+        renderFormattedList('displayTelefonosEmergencia', emergencies, emc => {
+             return `${emc.name || defaultPlaceholder} ${emc.comment ? `(${emc.comment})` : ''}: ${emc.phones || defaultPlaceholder}`;
+        }, defaultPlaceholder);
+        renderFormattedList('displayDireccion', addresses, addr => {
+            const depName = (addr.department && departmentsData[addr.department]) ? departmentsData[addr.department].name : (addr.department || defaultPlaceholder);
+            const countryName = addr.country === 'GT' ? 'Guatemala' : (addr.country || defaultPlaceholder); // Asume GT o muestra el código
+            return `(${addr.type || 'N/A'}) ${addr.direction || defaultPlaceholder}${addr.zone ? `, Z.${addr.zone}` : ''}, ${addr.municipality || defaultPlaceholder}, ${depName}`;
+        }, defaultPlaceholder);
+        renderFormattedList('displayVehiculos', vehicles, veh => {
+             return `Placa: ${veh.plate || defaultPlaceholder} - ${veh.brand || defaultPlaceholder} ${veh.model || defaultPlaceholder} (${veh.color || defaultPlaceholder})`;
+        }, defaultPlaceholder);
+
+        setTextContent('displayEnfermedadesAlergias', allergies);
+    });
+</script>
+</body>
+</html>

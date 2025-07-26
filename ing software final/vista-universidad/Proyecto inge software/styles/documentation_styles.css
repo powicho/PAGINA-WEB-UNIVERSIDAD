@@ -1,0 +1,126 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6; /* Un gris muy claro */
+    color: #333;
+}
+
+.documentation-container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.doc-header {
+    border-bottom: 2px solid #ab0a0a; /* Rojo institucional */
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.doc-header h1 {
+    color: #ab0a0a;
+    margin-bottom: 0.5em;
+}
+
+.project-subtitle {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.doc-section {
+    margin-bottom: 40px;
+}
+
+.doc-section h2 {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.file-documentation {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+}
+
+.file-documentation h3 {
+    color: #ab0a0a; /* Rojo institucional para nombres de archivo */
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.file-documentation h4 {
+    color: #444;
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.file-documentation ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+.file-documentation li {
+    margin-bottom: 5px;
+}
+
+.file-documentation p {
+    margin-bottom: 10px;
+}
+
+/* Estilos para elementos de código inline */
+code.file-name,
+code.file-path,
+code.html-attribute,
+code.html-element,
+code.css-class,
+code.css-value,
+code.js-function,
+code.js-object,
+code.js-variable {
+    background-color: #eef0f2; /* Un gris azulado claro */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    color: #2c3e50; /* Un azul oscuro/gris */
+}
+
+code.file-name {
+    font-weight: bold;
+}
+
+.note {
+    font-style: italic;
+    color: #777;
+    font-size: 0.9em;
+    border-left: 3px solid #f0ad4e; /* Un amarillo/naranja para notas */
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.summary-section ul {
+    font-size: 1.05em;
+}
+
+.doc-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    font-size: 0.9em;
+    color: #777;
+}

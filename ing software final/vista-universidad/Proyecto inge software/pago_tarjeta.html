@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pago con Tarjeta - Universidad San Pablo</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+  />
+  <style>
+    .custom-red {
+      background-color: #ab0a0a !important; /* Rojo oscuro original */
+    }
+    .navbar-brand {
+      font-weight: bold;
+    }
+    .card {
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .card:not(.concept-card):hover { /* Evitar hover en tarjetas de conceptos por ahora */
+      transform: translateY(-5px);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    .user-data-dl dt {
+      font-weight: 600;
+      color: #555;
+    }
+    .user-data-dl dd {
+      margin-bottom: 0.5rem;
+    }
+    .card-header-icon {
+        font-size: 1.2em;
+    }
+    .concept-card {
+        border: 1px solid #eee; /* Borde sutil para las tarjetas de concepto */
+    }
+    .concept-card .card-title { /* Cambiado de h6 a card-title para más flexibilidad */
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    .concept-card .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    .footer-logos img {
+      max-height: 40px; /* Ajustar altura de logos en footer */
+      margin-left: 10px;
+    }
+    /* La regla vacía ha sido eliminada de aquí */
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    
+  <!-- Encabezado / Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-university me-2"></i>Universidad San Pablo
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="main.html"><i class="fas fa-home me-1"></i>Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./cuenta_corriente.html"><i class="fas fa-file-invoice-dollar me-1"></i>Cuenta corriente</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-credit-card me-1"></i>Pago con tarjeta</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="container my-4 my-lg-5 flex-grow-1">
+    <h1 class="display-5 text-center mb-5 text-dark-emphasis">
+      <i class="fas fa-cash-register me-2" style="color: #ab0a0a;"></i>Realizar Pago con Tarjeta
+    </h1>
+
+    <div class="row g-4">
+      <!-- Columna de datos del usuario y selección de conceptos -->
+      <div class="col-lg-7">
+        <!-- Datos del Usuario -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white text-dark-emphasis py-3">
+            <h5 class="mb-0"><i class="fas fa-user-check me-2 text-primary card-header-icon"></i>Datos del Usuario</h5>
+          </div>
+          <div class="card-body p-4">
+            <dl class="row user-data-dl">
+              <dt class="col-sm-4"><i class="fas fa-id-badge me-2 text-muted"></i>No. Carné:</dt>
+              <dd class="col-sm-8">200254</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-user me-2 text-muted"></i>Nombre:</dt>
+              <dd class="col-sm-8">Luis Eduardo Avila Belisle</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-graduation-cap me-2 text-muted"></i>Carrera:</dt>
+              <dd class="col-sm-8">Ingeniería en Sistemas y Ciencias de la Computación</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-map-marker-alt me-2 text-muted"></i>Campus:</dt>
+              <dd class="col-sm-8">Sede Escuintla</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-clock me-2 text-muted"></i>Jornada:</dt>
+              <dd class="col-sm-8">Vespertina</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-layer-group me-2 text-muted"></i>Semestre:</dt>
+              <dd class="col-sm-8">5</dd>
+
+              <dt class="col-sm-4"><i class="fas fa-calendar-alt me-2 text-muted"></i>Fecha Actual:</dt>
+              <dd class="col-sm-8"><span id="fechaActual"></span></dd>
+            </dl>
+          </div>
+        </div>
+        
+        <!-- Selección de Conceptos a Pagar -->
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-header bg-white text-dark-emphasis py-3">
+            <h5 class="mb-0"><i class="fas fa-tasks me-2 text-info card-header-icon"></i>Cargos Pendientes a Pagar</h5>
+          </div>
+          <div class="card-body p-4">
+            <div class="row row-cols-1 row-cols-sm-2 g-3">
+              <!-- Concepto 1 -->
+              <div class="col">
+                <div class="card concept-card h-100 shadow-sm">
+                  <div class="card-body d-flex flex-column">
+                    <div class="card-title">Cuota Académica 4</div>
+                    <p class="card-text"><strong>Costo:</strong> Q600.00</p>
+                    <p class="card-text text-danger"><small><i class="fas fa-exclamation-triangle me-1"></i>Vence: 11/05/2050</small></p>
+                    <button class="btn btn-sm btn-outline-danger w-100 mt-auto"><i class="fas fa-plus-circle me-1"></i>Seleccionar</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Concepto 2 -->
+              <div class="col">
+                <div class="card concept-card h-100 shadow-sm">
+                  <div class="card-body d-flex flex-column">
+                    <div class="card-title">Cuota Académica 5</div>
+                    <p class="card-text"><strong>Costo:</strong> Q600.00</p>
+                    <p class="card-text text-danger"><small><i class="fas fa-exclamation-triangle me-1"></i>Vence: 11/11/2050</small></p>
+                    <button class="btn btn-sm btn-outline-danger w-100 mt-auto"><i class="fas fa-plus-circle me-1"></i>Seleccionar</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Agrega más tarjetas/conceptos según tu necesidad -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna de Detalle de Pago y Formulario de Tarjeta -->
+      <div class="col-lg-5">
+        <div class="sticky-top" style="top: 20px;"> 
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-receipt me-2 text-success card-header-icon"></i>Detalle de Pago</h5>
+                </div>
+                <div class="card-body p-4">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Total a Pagar:</h4>
+                    <h4 class="fw-bold text-success mb-0">Q0.00</h4>
+                  </div>
+                  <hr class="my-3">
+                  <p class="text-muted small mb-2">Conceptos seleccionados:</p>
+                  <ul class="list-group list-group-flush small" id="selectedItemsList">
+                      <li class="list-group-item d-flex justify-content-between align-items-center px-0 text-muted">
+                        <em>Ningún concepto seleccionado</em>
+                      </li>
+                      <!-- Ejemplo: <li class="list-group-item d-flex justify-content-between align-items-center px-0">Cuota Académica 4 <span>Q600.00</span></li> -->
+                  </ul>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-credit-card me-2 text-primary card-header-icon"></i>Datos de la Tarjeta</h5>
+                </div>
+                <div class="card-body p-4">
+                <form>
+                    <div class="mb-3">
+                    <label for="cardName" class="form-label">Nombre del Titular</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user-tie text-muted"></i></span>
+                        <input type="text" class="form-control" id="cardName" placeholder="Como aparece en la tarjeta">
+                    </div>
+                    </div>
+                    <div class="mb-3">
+                    <label for="cardNumber" class="form-label">No. de Tarjeta</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fab fa-cc-visa text-muted"></i></span> <!-- Cambiar icono según tipo de tarjeta -->
+                        <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19">
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 mb-3">
+                            <label for="expDate" class="form-label">Fecha de Caducidad</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt text-muted"></i></span>
+                                <input type="month" class="form-control" id="expDate" name="expDate" placeholder="MM/AA">
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
+                                <input type="password" class="form-control" id="cvv" placeholder="123" inputmode="numeric" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardType" class="form-label">Tipo de Tarjeta</label>
+                        <select id="cardType" class="form-select">
+                        <option selected disabled value="">Seleccione...</option>
+                        <option value="credito">Crédito</option>
+                        <option value="debito">Débito</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 btn-lg mt-2">
+                        <i class="fas fa-shield-alt me-2"></i>Pagar Ahora
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div> <!-- row -->
+  </main> <!-- container -->
+
+  <!-- Pie de página -->
+  <footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+    <div class="container">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+            <p class="mb-2 mb-sm-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+            <div class="footer-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa" title="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png" alt="Mastercard" title="Mastercard">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express" title="American Express">
+            </div>
+        </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+    // Script para la fecha actual
+    document.addEventListener('DOMContentLoaded', function() {
+      const fechaActualElem = document.getElementById("fechaActual");
+      if (fechaActualElem) {
+        fechaActualElem.textContent = new Date().toLocaleDateString("es-ES", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+      }
+    });
+    // Aquí podrías añadir tu lógica de JS para seleccionar cargos, calcular total, validaciones, etc.
+  </script>
+</body>
+</html>

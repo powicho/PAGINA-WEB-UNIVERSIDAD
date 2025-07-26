@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Principal - Universidad San Pablo</title>
+    <!-- Font Awesome CSS (para los iconos) -->
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" 
+    />
+    <!-- Eliminada la referencia a stylesMain.css --> 
+    <!-- Google Fonts (Opcional, para una tipografía más elegante) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Contenido de stylesMain.css pegado aquí */
+        :root {
+            --primary-color: #ab0a0a; /* Rojo institucional */
+            --secondary-color: #f4f6f9; /* Un gris claro para fondos */
+            --text-color: #333;
+            --text-muted: #6c757d;
+            --sidebar-bg: #ffffff;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            --hover-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            --font-family: 'Poppins', sans-serif; /* Tipografía más elegante */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* --- Header --- */
+        .main-header {
+            background-color: var(--header-bg);
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-welcome-link { /* Cambiado de user-welcome-text para que sea un enlace */
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-right: 1rem;
+            text-decoration: none; /* Quitar subrayado del enlace */
+            transition: color 0.2s;
+        }
+        .user-welcome-link:hover {
+            color: var(--primary-color); /* Cambiar color al hacer hover */
+        }
+        .user-welcome-link i {
+            margin-right: 0.3rem;
+            color: var(--primary-color);
+        }
+
+        .logout-button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        .logout-button:hover {
+            color: var(--primary-color);
+            background-color: rgba(171, 10, 10, 0.1);
+        }
+
+        /* --- Main Container (Sidebar + Content) --- */
+        .main-container {
+            display: flex;
+            flex-grow: 1;
+            padding-top: 1rem; 
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            padding: 1.5rem 1rem;
+            box-shadow: var(--shadow);
+            height: calc(100vh - 60px - 1rem); 
+            position: sticky;
+            top: calc(60px + 1rem); 
+            overflow-y: auto;
+        }
+
+        .sidebar-search {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-search input[type="text"] {
+            width: 100%;
+            padding: 0.7rem 0.7rem 0.7rem 2.5rem; 
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            background-color: var(--secondary-color);
+        }
+        .sidebar-search input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(171, 10, 10, 0.25);
+        }
+
+        .sidebar-search .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 5px;
+            margin-bottom: 0.3rem;
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-nav li a .icon {
+            margin-right: 0.8rem;
+            width: 20px; 
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a.active {
+            background-color: rgba(171, 10, 10, 0.1); 
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .sidebar-nav li a:hover .icon,
+        .sidebar-nav li a.active .icon {
+            color: var(--primary-color);
+        }
+
+        /* --- Content --- */
+        .content {
+            flex-grow: 1;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            overflow-y: auto; 
+        }
+
+        /* --- Slider Visual --- */
+        .image-slider-visual {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1rem; /* Menor padding si solo es la imagen */
+            margin-bottom: 0.5rem; /* Espacio antes del texto de pagos */
+            box-shadow: var(--shadow);
+            text-align: center; /* Centrar imagen y puntos */
+            position: relative; /* Para posicionar los puntos */
+            overflow: hidden; /* Para que la imagen no se salga si es muy grande */
+        }
+        .slider-image {
+            max-width: 100%; /* Ajustar al ancho del contenedor */
+            max-height: 400px; /* Altura máxima para el slider */
+            height: auto;
+            border-radius: 6px;
+            display: block;
+            margin: 0 auto 0.5rem auto; /* Centrar y espacio para puntos */
+            object-fit: cover; /* Para que la imagen cubra sin deformarse */
+        }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .slider-dots .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer; /* Solo para dar la idea */
+        }
+        .slider-dots .dot.active {
+            background-color: var(--primary-color);
+        }
+
+
+        .payment-info-card { /* Anteriormente banner-card */
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            /* display: flex; No necesario si solo es texto */
+            /* gap: 1.5rem; No necesario */
+            /* align-items: center; No necesario */
+            transition: box-shadow 0.2s;
+        }
+        .payment-info-card:hover{
+            box-shadow: var(--hover-shadow);
+        }
+
+        /* Ya no se usa .banner-image-container y .banner-image aquí */
+
+        .payment-info-text h2 { /* Anteriormente banner-text */
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-info-text p {
+            margin-bottom: 0.3rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .payment-info-text p i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* --- Notices Section --- */
+        .notices-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block; 
+        }
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .notices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .notice-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color); 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .notice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .notice-icon {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .notice-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .notice-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+        .notice-card p strong {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        .notice-card.solvente { 
+            border-left-color: #28a745; 
+        }
+        .notice-card.solvente .notice-icon {
+            color: #28a745;
+        }
+        .notice-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .notice-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--card-bg); 
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto; 
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static; 
+                margin-bottom: 1.5rem;
+            }
+            /* Si quieres que el slider y el texto de pagos se apilen en móvil */
+            /* .payment-info-card {
+                flex-direction: column;
+                text-align: center;
+            } */
+        }
+
+        @media (max-width: 768px) {
+            .header-left .logo-text {
+                display: none; 
+            }
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            .main-header {
+                padding: 0.8rem 1rem;
+            }
+            .content {
+                padding: 0 1rem 1rem 1rem;
+            }
+            .slider-image {
+                max-height: 200px; /* Menor altura en móviles */
+            }
+        }
+    </style>
+</head>
+<body onload="checkLogin()">
+    <div class="page-wrapper">
+        <header class="main-header">
+            <div class="header-left">
+                <a href="main.html" class="logo">
+                    <i class="fas fa-university logo-icon"></i>
+                    <span class="logo-text">Universidad San Pablo</span>
+                </a>
+            </div>
+            <div class="header-right">
+                <a href="#" id="userWelcomeLink" class="user-welcome-link">
+                    <i class="fas fa-user-circle"></i> 
+                    <span id="userWelcomeName"></span> 
+                </a>
+                <button onclick="logout()" class="logout-button" title="Cerrar Sesión">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="sidebar-search">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Buscar en el menú...">
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="main.html" class="active"><i class="fas fa-home icon"></i>Inicio</a></li>
+                        <li><a href="asignaciones.html"><i class="fas fa-tasks icon"></i>Asignaciones</a></li>
+                        <li><a href="cursos.html"><i class="fas fa-book-open icon"></i>Cursos</a></li>
+                        <li><a href="cuenta_corriente.html"><i class="fas fa-file-invoice-dollar icon"></i>Cuenta Corriente</a></li>
+                        <li><a href="perfil_usuario.html"><i class="fas fa-user icon"></i>Perfil de Usuario</a></li> 
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content">
+                
+                <div class="image-slider-visual">
+                    <img src="Imagenes/sliderImages1.png" alt="Anuncio Importante" class="slider-image">
+                
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+
+               
+                <div class="payment-info-card">
+                    <div class="payment-info-text">
+                        <h2>Realiza tus pagos en los bancos indicados</h2>
+                        <p><i class="fas fa-landmark"></i> Campus Central y Campus Escuintla</p>
+                        <p><i class="fas fa-phone-alt"></i> Tel: (502) XXXX-XXXX (Actualiza el número)</p>
+                    </div>
+                </div>
+
+                <section class="notices-section">
+                    <h3 class="section-title"><i class="fas fa-bullhorn"></i> Avisos Importantes</h3>
+                    <div class="notices-grid">
+                        <div class="notice-card">
+                            <div class="notice-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <h4>Próxima Fecha de Asignación</h4>
+                            <p><strong>Carrera:</strong> Ingeniería en Sistemas y Ciencias de la Computación</p>
+                            <p><strong>Periodo:</strong> 19/01/2025 - 11/02/2025</p>
+                        </div>
+                        <div class="notice-card">
+                            <div class="notice-icon"><i class="fas fa-layer-group"></i></div>
+                            <h4>Cursos Disponibles</h4>
+                            <p>Actualmente hay <strong>8 cursos</strong> disponibles para tu asignación.</p>
+                        </div>
+                        <div class="notice-card solvente">
+                            <div class="notice-icon"><i class="fas fa-check-circle"></i></div>
+                            <h4>Estado Financiero</h4>
+                            <p>Te encuentras <strong>solvente</strong> y al día con tus pagos.</p>
+                        </div>
+                         <div class="notice-card">
+                            <div class="notice-icon"><i class="fas fa-info-circle"></i></div>
+                            <h4>Nuevas Políticas</h4>
+                            <p>Revisa las <a href="#">actualizaciones en el reglamento estudiantil</a>.</p>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© <span id="currentYear"></span> - Universidad San Pablo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="scripts/login.js"></script> 
+    <script>
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("userPassword"); 
+            localStorage.removeItem("rememberMe");
+            window.location.href = "index.html";
+        }
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+        // Para mostrar el nombre del usuario en el saludo
+        // Esto asume que guardas el nombre del usuario en localStorage con la clave "loggedInUser"
+        // y que el script login.js define checkLogin() y podría setear el nombre.
+        document.addEventListener('DOMContentLoaded', function() {
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            const userWelcomeNameSpan = document.getElementById("userWelcomeName");
+            if (userWelcomeNameSpan) {
+                if (loggedInUser) {
+                    userWelcomeNameSpan.textContent = `Bienvenido, ${loggedInUser}`;
+                } else {
+                    userWelcomeNameSpan.textContent = 'Bienvenido'; // O algún texto por defecto
+                }
+            }
+
+            // Si tienes una función checkLogin y quieres llamarla, puedes hacerlo aquí
+            // if (typeof checkLogin === 'function') {
+            //     checkLogin(); 
+            // }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Identificaciones Legales - Universidad San Pablo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        /* Estilos base unificados */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .custom-red {
+            background-color: #ab0a0a !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card-header-icon {
+            font-size: 1.2em;
+        }
+        /* Estilos específicos para este formulario */
+        label.form-label, label.col-form-label { 
+            font-weight: 600;
+        }
+        .file-info { 
+            font-size: 0.85em; 
+            color: #6c757d; /* text-muted */
+            margin-top: 0.3rem;
+            display: block; /* Para que ocupe su propia línea */
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- Navbar Unificado -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">
+            <i class="fas fa-university me-2"></i>Universidad San Pablo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<main class="container my-4 my-lg-5 flex-grow-1">
+    <h1 class="display-5 text-center mb-4 text-dark-emphasis">
+        <i class="fas fa-id-card-alt me-2" style="color: #ab0a0a;"></i>Editar Identificaciones Legales
+    </h1>
+
+    <form id="editLegalForm">
+        <!-- Card: Documentos de Identificación -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-file-invoice me-2 text-primary card-header-icon"></i>Documentos de Identificación</h5>
+            </div>
+            <div class="card-body p-4">
+                <!-- Fila DPI --> 
+                <div class="row mb-3 align-items-center">
+                    <label for="dpiNumber" class="col-sm-3 col-lg-2 col-form-label">DPI:</label>
+                    <div class="col-sm-9 col-lg-3">
+                        <input type="text" class="form-control form-control-sm" id="dpiNumber" placeholder="Número de DPI">
+                    </div>
+                    <div class="col-sm-12 col-lg-7 mt-2 mt-lg-0">
+                        <input type="file" class="form-control form-control-sm" id="dpiFile" accept=".pdf,.jpg,.jpeg,.png">
+                        <div class="file-info" id="dpiFileInfo"></div>
+                    </div>
+                </div>
+                 <!-- Fila Fé de Edad --> 
+                <div class="row mb-3 align-items-center">
+                    <label for="feEdadNumber" class="col-sm-3 col-lg-2 col-form-label">Fé de Edad:</label>
+                    <div class="col-sm-9 col-lg-3">
+                        <input type="text" class="form-control form-control-sm" id="feEdadNumber" placeholder="Número o referencia">
+                    </div>
+                    <div class="col-sm-12 col-lg-7 mt-2 mt-lg-0">
+                        <input type="file" class="form-control form-control-sm" id="feEdadFile" accept=".pdf,.jpg,.jpeg,.png">
+                         <div class="file-info" id="feEdadFileInfo"></div>
+                    </div>
+                </div>
+                 <!-- Fila Pasaporte --> 
+                <div class="row mb-3 align-items-center">
+                    <label for="pasaporteNumber" class="col-sm-3 col-lg-2 col-form-label">Pasaporte:</label>
+                    <div class="col-sm-9 col-lg-3">
+                        <input type="text" class="form-control form-control-sm" id="pasaporteNumber" placeholder="Número de Pasaporte">
+                    </div>
+                    <div class="col-sm-12 col-lg-7 mt-2 mt-lg-0">
+                        <input type="file" class="form-control form-control-sm" id="pasaporteFile" accept=".pdf,.jpg,.jpeg,.png">
+                         <div class="file-info" id="pasaporteFileInfo"></div>
+                    </div>
+                </div>
+            <!-- Fila Cédula --> 
+                <div class="row mb-3 align-items-center">
+                    <label for="cedulaNumber" class="col-sm-3 col-lg-2 col-form-label">Cédula:</label>
+                    <div class="col-sm-9 col-lg-3">
+                        <input type="text" class="form-control form-control-sm" id="cedulaNumber" placeholder="Número de Cédula">
+                    </div>
+                    <div class="col-sm-12 col-lg-7 mt-2 mt-lg-0">
+                        <input type="file" class="form-control form-control-sm" id="cedulaFile" accept=".pdf,.jpg,.jpeg,.png">
+                         <div class="file-info" id="cedulaFileInfo"></div>
+                    </div>
+                </div>
+                 <!-- Fila RTU --> 
+                <div class="row mb-3 align-items-center">
+                    <label for="rtuFile" class="col-sm-3 col-lg-2 col-form-label">RTU:</label> 
+                     <div class="col-sm-9 col-lg-10"> 
+                        <input type="file" class="form-control form-control-sm" id="rtuFile" accept=".pdf,.jpg,.jpeg,.png">
+                         <div class="file-info" id="rtuFileInfo"></div>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+
+        <!-- Card: Otros Datos Legales -->
+         <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-balance-scale me-2 text-success card-header-icon"></i>Otros Datos Legales</h5>
+            </div>
+            <div class="card-body p-4">
+                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="nit" class="form-label">NIT:</label>
+                            <input type="text" class="form-control form-control-sm" id="nit" name="nit">
+                        </div>
+                         <div class="mb-3">
+                            <label for="tipoLicencia" class="form-label">Tipo de licencia:</label>
+                            <input type="text" class="form-control form-control-sm" id="tipoLicencia" name="tipoLicencia">
+                        </div>
+                         <div class="mb-3">
+                            <label for="regimenTributario" class="form-label">Régimen Tributario:</label>
+                            <input type="text" class="form-control form-control-sm" id="regimenTributario" name="regimenTributario">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                         <div class="mb-3">
+                            <label for="igss" class="form-label">Número de Afiliación del IGSS:</label>
+                            <input type="text" class="form-control form-control-sm" id="igss" name="igss">
+                        </div>
+                        <div class="mb-3">
+                            <label for="numSeguro" class="form-label">Número de seguro:</label>
+                            <input type="text" class="form-control form-control-sm" id="numSeguro" name="numSeguro">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipoSangre" class="form-label">Tipo de sangre:</label>
+                            <input type="text" class="form-control form-control-sm" id="tipoSangre" name="tipoSangre">
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+
+        <!-- Botones de Acción -->
+        <div class="text-end mb-4">
+             <a href="perfil_usuario.html" class="btn btn-secondary me-2"><i class="fas fa-times me-1"></i>Cancelar</a>
+             <button type="button" id="saveLegalInfo" class="btn btn-danger"><i class="fas fa-save me-1"></i>Guardar Cambios</button>
+        </div>
+    </form>
+</main>
+
+<!-- Pie de página Unificado -->
+<footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+    <p class="mb-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- El JavaScript que proporcionaste se mantiene igual en su lógica --> 
+<script>
+    const fileStates = {
+        dpi: { currentFileName: null, inputElementId: 'dpiFile', infoElementId: 'dpiFileInfo' },
+        feEdad: { currentFileName: null, inputElementId: 'feEdadFile', infoElementId: 'feEdadFileInfo' },
+        pasaporte: { currentFileName: null, inputElementId: 'pasaporteFile', infoElementId: 'pasaporteFileInfo' },
+        cedula: { currentFileName: null, inputElementId: 'cedulaFile', infoElementId: 'cedulaFileInfo' },
+        rtu: { currentFileName: null, inputElementId: 'rtuFile', infoElementId: 'rtuFileInfo' }
+    };
+
+    function updateFileInfo(docType) {
+        const state = fileStates[docType];
+        const fileInput = document.getElementById(state.inputElementId);
+        const infoElement = document.getElementById(state.infoElementId);
+        let displayText = '';
+
+        if (fileInput.files && fileInput.files.length > 0) {
+            displayText = `Nuevo: ${fileInput.files[0].name}`;
+        } else if (state.currentFileName) {
+            displayText = `Actual: ${state.currentFileName}`;
+        } else {
+             displayText = 'Ningún archivo seleccionado.';
+        }
+        infoElement.textContent = displayText;
+    }
+
+    function loadLegalData() {
+        const legalData = JSON.parse(localStorage.getItem('userLegalData')) || { documents: {}, otherData: {} };
+        const documents = legalData.documents || {};
+        const otherData = legalData.otherData || {};
+
+        Object.keys(fileStates).forEach(docType => {
+            const docInfo = documents[docType] || {}; 
+            const numberInputId = `${docType}Number`; 
+            const numberInput = document.getElementById(numberInputId);
+
+            if (numberInput) { // RTU no tiene campo 'number'
+                 numberInput.value = docInfo.number || '';
+            }
+
+            fileStates[docType].currentFileName = docInfo.fileName || null; 
+            document.getElementById(fileStates[docType].inputElementId).value = ''; 
+            updateFileInfo(docType); 
+        });
+
+        document.getElementById('nit').value = otherData.nit || '';
+        document.getElementById('tipoLicencia').value = otherData.tipoLicencia || '';
+        document.getElementById('regimenTributario').value = otherData.regimenTributario || '';
+        document.getElementById('igss').value = otherData.igss || '';
+        document.getElementById('numSeguro').value = otherData.numSeguro || '';
+        document.getElementById('tipoSangre').value = otherData.tipoSangre || '';
+    }
+
+    function saveLegalData() {
+        const documentsToSave = {};
+
+        Object.keys(fileStates).forEach(docType => {
+            const state = fileStates[docType];
+            const numberInputId = `${docType}Number`;
+            const numberInput = document.getElementById(numberInputId);
+            const fileInput = document.getElementById(state.inputElementId);
+
+            let fileNameToSave = state.currentFileName; 
+            if (fileInput.files && fileInput.files.length > 0) {
+                fileNameToSave = fileInput.files[0].name;
+            }
+            
+            // Para RTU, el campo 'number' no existe, así que numberInput será null.
+            const numberValue = numberInput ? numberInput.value : ''; // Si no hay input de número, guardar string vacío
+
+            documentsToSave[docType] = {
+                number: numberValue,
+                fileName: fileNameToSave 
+            };
+        });
+
+        const otherDataToSave = {
+            nit: document.getElementById('nit').value,
+            tipoLicencia: document.getElementById('tipoLicencia').value,
+            regimenTributario: document.getElementById('regimenTributario').value,
+            igss: document.getElementById('igss').value,
+            numSeguro: document.getElementById('numSeguro').value,
+            tipoSangre: document.getElementById('tipoSangre').value,
+        };
+
+        const legalDataToSave = {
+            documents: documentsToSave,
+            otherData: otherDataToSave
+        };
+        localStorage.setItem('userLegalData', JSON.stringify(legalDataToSave));
+        window.location.href = 'perfil_usuario.html'; // Asegúrate que el nombre del archivo es correcto
+    }
+
+    Object.keys(fileStates).forEach(docType => {
+        const inputElement = document.getElementById(fileStates[docType].inputElementId);
+        if (inputElement) {
+            inputElement.addEventListener('change', () => updateFileInfo(docType));
+        }
+    });
+    document.addEventListener('DOMContentLoaded', loadLegalData);
+    document.getElementById('saveLegalInfo').addEventListener('click', saveLegalData);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Contactos e Info Adicional - Universidad San Pablo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        /* Estilos base unificados */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .custom-red {
+            background-color: #ab0a0a !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card-header-icon { /* Para iconos en el card-header si los usamos */
+            font-size: 1.2em;
+        }
+        /* Estilos específicos para este formulario */
+        label.form-label { /* Bootstrap ya lo hace, pero para asegurar */
+            font-weight: 600; 
+        }
+        .remove-btn {
+            color: #dc3545; 
+            cursor: pointer; 
+            font-size: 1.1rem; 
+            background: none;
+            border: none;
+            padding: 0.25rem 0.5rem; /* Pequeño padding para el clic */
+        }
+        .remove-btn:hover {
+            color: #a71d2a;
+        }
+        .add-btn-custom { /* Reemplaza .add-btn para usar clases de Bootstrap */
+            text-decoration: none;
+        }
+        .dynamic-list-item { 
+            border-bottom: 1px solid #e9ecef; /* Color de borde más suave de Bootstrap */
+            padding-bottom: 1rem; 
+            margin-bottom: 1rem;
+         }
+        .dynamic-list-item:last-child { 
+            border-bottom: none; 
+            margin-bottom: 0; 
+            padding-bottom: 0; 
+        }
+        .dynamic-list-header { 
+            background-color: #f8f9fa; /* Gris claro de Bootstrap */
+            color: #212529; /* Texto oscuro */
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 1rem; 
+            border-radius: 0.25rem; 
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .section-card .card-body h6 { /* Para los subtítulos "Teléfonos", "Correos" */
+            font-weight: 600;
+            color: #343a40;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .section-card .card-body h6:first-of-type {
+             margin-top: 0; /* Sin margen superior para el primer h6 */
+        }
+
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- Navbar Unificado -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-university me-2"></i>Universidad San Pablo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido Principal -->
+<main class="container my-4 my-lg-5 flex-grow-1">
+    <h1 class="display-5 text-center mb-4 text-dark-emphasis">
+        <i class="fas fa-address-card me-2" style="color: #ab0a0a;"></i>Editar Contactos e Información Adicional
+    </h1>
+
+    <form id="editContactForm">
+
+        <!-- Card: DIRECCIONES -->
+        <div class="card shadow-sm mb-4 section-card">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2 text-primary card-header-icon"></i>Direcciones</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="dynamic-list-header row text-center g-2 align-items-center">
+                    <div class="col-md-2">Tipo</div>
+                    <div class="col-md-3">Dirección</div>
+                    <div class="col-md-1">Zona</div>
+                    <div class="col-md-2">País</div>
+                    <div class="col-md-2">Departamento</div>
+                    <div class="col-md-1">Municipio</div>
+                    <div class="col-md-1">Quitar</div>
+                </div>
+                <div id="addressListContainer">
+                    {/* <!-- Filas de dirección generadas por JS --> */}
+                </div>
+                <div class="text-start mt-3">
+                    <a href="#" id="addAddressBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Dirección</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: MÉTODOS DE CONTACTO -->
+        <div class="card shadow-sm mb-4 section-card">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-phone-alt me-2 text-success card-header-icon"></i>Métodos de Contacto</h5>
+            </div>
+            <div class="card-body p-4">
+                 <h6><i class="fas fa-mobile-alt me-2"></i>Teléfonos</h6>
+                <div class="dynamic-list-header row text-center g-2 align-items-center">
+                    <div class="col-md-8">Número</div>
+                    <div class="col-md-2">Principal</div>
+                    <div class="col-md-2">Quitar</div>
+                </div>
+                 <div id="phoneListContainer">
+                    {/* <!-- Filas de teléfono generadas por JS --> */}
+                 </div>
+                 <div class="text-start mt-3">
+                    <a href="#" id="addPhoneBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Teléfono</a>
+                 </div>
+                 
+                 <hr class="my-4">
+                 
+                 <h6><i class="fas fa-envelope me-2"></i>Correos Electrónicos</h6>
+                <div class="dynamic-list-header row text-center g-2 align-items-center">
+                    <div class="col-md-8">Correo</div>
+                    <div class="col-md-2">Principal</div>
+                    <div class="col-md-2">Quitar</div>
+                </div>
+                 <div id="emailListContainer">
+                    {/* <!-- Filas de correo generadas por JS --> */}
+                 </div>
+                 <div class="text-start mt-3">
+                    <a href="#" id="addEmailBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Correo</a>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Card: CONTACTOS DE EMERGENCIA -->
+        <div class="card shadow-sm mb-4 section-card">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                 <h5 class="mb-0"><i class="fas fa-first-aid me-2 text-danger card-header-icon"></i>Contactos de Emergencia</h5>
+            </div>
+            <div class="card-body p-4">
+                 <div class="dynamic-list-header row text-center g-2 align-items-center">
+                    <div class="col-md-4">Nombre</div>
+                    <div class="col-md-3">(Relación)</div>
+                    <div class="col-md-3">Teléfonos</div>
+                    <div class="col-md-2">Quitar</div>
+                 </div>
+                 <div id="emergencyContactListContainer">
+                    {/* <!-- Filas de contacto de emergencia generadas por JS --> */}
+                 </div>
+                 <div class="text-start mt-3">
+                    <a href="#" id="addEmergencyContactBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Contacto Emerg.</a>
+                 </div>
+            </div>
+        </div>
+        
+        <!-- Card: VEHÍCULOS -->
+        <div class="card shadow-sm mb-4 section-card">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-car me-2 text-info card-header-icon"></i>Vehículos</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="dynamic-list-header row text-center g-2 align-items-center">
+                    <div class="col-md-2">Placa</div>
+                    <div class="col-md-3">Marca</div>
+                    <div class="col-md-3">Modelo</div>
+                    <div class="col-md-3">Color</div>
+                    <div class="col-md-1">Quitar</div>
+                </div>
+                <div id="vehicleListContainer">
+                     {/* <!-- Filas de vehículo generadas por JS --> */}
+                </div>
+                 <div class="text-start mt-3">
+                    <a href="#" id="addVehicleBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Vehículo</a>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Card: ENFERMEDADES/ALERGIAS -->
+         <div class="card shadow-sm mb-4 section-card">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-notes-medical me-2 text-warning card-header-icon"></i>Enfermedad o Alergias</h5>
+            </div>
+             <div class="card-body p-4">
+                  <div class="mb-1">
+                     <label for="enfermedadesAlergias" class="form-label visually-hidden">Enfermedad o Alergias:</label>
+                     <textarea class="form-control" id="enfermedadesAlergias" name="enfermedadesAlergias" rows="3" placeholder="Describe aquí enfermedades crónicas o alergias importantes..."></textarea>
+                  </div>
+             </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="text-end mb-4">
+             <a href="perfil_usuario.html" class="btn btn-secondary me-2"><i class="fas fa-times me-1"></i>Cancelar</a>
+             <button type="button" id="saveContactInfo" class="btn btn-danger"><i class="fas fa-save me-1"></i>Guardar Cambios</button>
+        </div>
+    </form>
+</main>
+
+<!-- Pie de página Unificado -->
+<footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+    <p class="mb-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{/* <!-- El JavaScript que proporcionaste se mantiene igual en su lógica --> */}
+<script>
+    // --- Datos (Simulación para Selects Dinámicos) ---
+    const departmentsData = {
+        "GT": { name: "Guatemala", municipalities: ["Guatemala", "Villa Nueva", "Mixco", "Amatitlán", "Villa Canales"] },
+        "ES": { name: "Escuintla", municipalities: ["Escuintla", "San José", "Masagua", "Tiquisate", "La Democracia"] },
+        "SA": { name: "Sacatepéquez", municipalities: ["Antigua Guatemala", "Jocotenango", "Sumpango", "Ciudad Vieja"] },
+    };
+    const addressTypes = ["Casa", "Oficina", "Apartamento", "Otro"];
+    const countries = [{ code: "GT", name: "Guatemala" }]; 
+
+    let addressCounter = 0, phoneCounter = 0, emailCounter = 0, emergencyCounter = 0, vehicleCounter = 0;
+    const addressContainer = document.getElementById('addressListContainer');
+    const phoneContainer = document.getElementById('phoneListContainer');
+    const emailContainer = document.getElementById('emailListContainer');
+    const emergencyContainer = document.getElementById('emergencyContactListContainer');
+    const vehicleContainer = document.getElementById('vehicleListContainer');
+
+    function createAddressRow(data = {}) {
+        addressCounter++;
+        const rowId = `addr-${addressCounter}`;
+        const row = document.createElement('div');
+        row.classList.add('row', 'g-2', 'align-items-center', 'dynamic-list-item');
+        row.id = rowId;
+        row.innerHTML = `
+            <div class="col-md-2">
+                <select class="form-select form-select-sm address-type" name="addr_type_${rowId}">
+                    <option value="">Seleccione...</option>
+                    ${addressTypes.map(type => `<option value="${type}" ${data.type === type ? 'selected' : ''}>${type}</option>`).join('')}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <textarea class="form-control form-control-sm address-direction" name="addr_dir_${rowId}" rows="1" placeholder="Dirección">${data.direction || ''}</textarea>
+            </div>
+            <div class="col-md-1">
+                <input type="text" class="form-control form-control-sm address-zone" name="addr_zone_${rowId}" placeholder="Zona" value="${data.zone || ''}">
+            </div>
+            <div class="col-md-2">
+                <select class="form-select form-select-sm address-country" name="addr_country_${rowId}">
+                     ${countries.map(c => `<option value="${c.code}" ${data.country === c.code ? 'selected' : ''}>${c.name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-select form-select-sm address-department" name="addr_dep_${rowId}">
+                    <option value="">Departamento...</option>
+                    ${Object.keys(departmentsData).map(code => `<option value="${code}" ${data.department === code ? 'selected' : ''}>${departmentsData[code].name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="col-md-1">
+                <select class="form-select form-select-sm address-municipality" name="addr_mun_${rowId}" ${!data.department ? 'disabled' : ''}>
+                    <option value="">Municipio...</option>
+                </select>
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="remove-btn remove-address-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `;
+        return row;
+    }
+
+    function createPhoneRow(data = {}) {
+         phoneCounter++;
+         const rowId = `ph-${phoneCounter}`;
+         const row = document.createElement('div');
+         row.classList.add('row', 'g-2', 'align-items-center', 'dynamic-list-item');
+         row.id = rowId;
+         row.innerHTML = `
+            <div class="col-md-8">
+                <input type="tel" class="form-control form-control-sm phone-number" placeholder="Número de teléfono" value="${data.number || ''}">
+            </div>
+            <div class="col-md-2 text-center">
+                <input class="form-check-input phone-primary" type="radio" name="primaryPhone" value="${rowId}" ${data.isPrimary ? 'checked' : ''}>
+            </div>
+            <div class="col-md-2 text-center">
+                <button type="button" class="remove-btn remove-phone-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+         `;
+         return row;
+    }
+    function createEmailRow(data = {}) {
+         emailCounter++;
+         const rowId = `em-${emailCounter}`;
+         const row = document.createElement('div');
+         row.classList.add('row', 'g-2', 'align-items-center', 'dynamic-list-item');
+         row.id = rowId;
+         row.innerHTML = `
+            <div class="col-md-8">
+                <input type="email" class="form-control form-control-sm email-address" placeholder="Correo electrónico" value="${data.email || ''}">
+            </div>
+            <div class="col-md-2 text-center">
+                <input class="form-check-input email-primary" type="radio" name="primaryEmail" value="${rowId}" ${data.isPrimary ? 'checked' : ''}>
+            </div>
+            <div class="col-md-2 text-center">
+                <button type="button" class="remove-btn remove-email-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+         `;
+         return row;
+    }
+
+    function createEmergencyContactRow(data = {}) {
+        emergencyCounter++;
+        const rowId = `emc-${emergencyCounter}`;
+        const row = document.createElement('div');
+        row.classList.add('row', 'g-2', 'align-items-center', 'dynamic-list-item');
+        row.id = rowId;
+        row.innerHTML = `
+            <div class="col-md-4">
+                <input type="text" class="form-control form-control-sm emergency-name" placeholder="Nombre completo" value="${data.name || ''}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm emergency-comment" placeholder="Relación (ej: Madre)" value="${data.comment || ''}">
+            </div>
+             <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm emergency-phones" placeholder="Teléfono(s)" value="${data.phones || ''}">
+            </div>
+            <div class="col-md-2 text-center">
+                <button type="button" class="remove-btn remove-emergency-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `;
+        return row;
+    }
+
+     function createVehicleRow(data = {}) {
+        vehicleCounter++;
+        const rowId = `veh-${vehicleCounter}`;
+        const row = document.createElement('div');
+        row.classList.add('row', 'g-2', 'align-items-center', 'dynamic-list-item');
+        row.id = rowId;
+        row.innerHTML = `
+            <div class="col-md-2">
+                <input type="text" class="form-control form-control-sm vehicle-plate" placeholder="Placa" value="${data.plate || ''}">
+            </div>
+             <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm vehicle-brand" placeholder="Marca" value="${data.brand || ''}">
+            </div>
+             <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm vehicle-model" placeholder="Modelo" value="${data.model || ''}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm vehicle-color" placeholder="Color" value="${data.color || ''}">
+            </div>
+            <div class="col-md-1 text-center">
+                <button type="button" class="remove-btn remove-vehicle-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `;
+        return row;
+    }
+
+    function populateMunicipalities(departmentSelect, selectedMunicipality = null) {
+        const selectedDepartmentCode = departmentSelect.value;
+        const row = departmentSelect.closest('.dynamic-list-item'); 
+        const municipalitySelect = row ? row.querySelector('.address-municipality') : null;
+
+        if (!municipalitySelect) return;
+
+        municipalitySelect.innerHTML = '<option value="">Municipio...</option>'; 
+        municipalitySelect.disabled = true;
+
+        if (selectedDepartmentCode && departmentsData[selectedDepartmentCode]) {
+            const municipalities = departmentsData[selectedDepartmentCode].municipalities;
+            municipalities.forEach(mun => {
+                const option = document.createElement('option');
+                option.value = mun; 
+                option.textContent = mun;
+                 if (mun === selectedMunicipality) { 
+                     option.selected = true;
+                 }
+                municipalitySelect.appendChild(option);
+            });
+            municipalitySelect.disabled = false;
+        }
+    }
+
+    document.getElementById('addAddressBtn').addEventListener('click', (e) => { e.preventDefault(); addressContainer.appendChild(createAddressRow()); });
+    document.getElementById('addPhoneBtn').addEventListener('click', (e) => { e.preventDefault(); phoneContainer.appendChild(createPhoneRow()); });
+    document.getElementById('addEmailBtn').addEventListener('click', (e) => { e.preventDefault(); emailContainer.appendChild(createEmailRow()); });
+    document.getElementById('addEmergencyContactBtn').addEventListener('click', (e) => { e.preventDefault(); emergencyContainer.appendChild(createEmergencyContactRow()); });
+    document.getElementById('addVehicleBtn').addEventListener('click', (e) => { e.preventDefault(); vehicleContainer.appendChild(createVehicleRow()); });
+
+    function handleRemoveClick(event, container, selector, minItems = 0) {
+        const removeBtn = event.target.closest(selector);
+        if (removeBtn) {
+            event.preventDefault();
+            if (container.querySelectorAll('.dynamic-list-item').length > minItems) {
+                const rowId = removeBtn.getAttribute('data-row-id');
+                const rowToRemove = document.getElementById(rowId);
+                if (rowToRemove) rowToRemove.remove();
+            } else {
+                 if (minItems > 0) alert(`Debe haber al menos ${minItems} elemento(s).`);
+                 else document.getElementById(removeBtn.getAttribute('data-row-id'))?.remove(); // Permitir quitar si minItems es 0
+            }
+        }
+    }
+    addressContainer.addEventListener('click', (e) => handleRemoveClick(e, addressContainer, '.remove-address-btn', 0)); // Permitir quitar todas las direcciones
+    phoneContainer.addEventListener('click', (e) => handleRemoveClick(e, phoneContainer, '.remove-phone-btn', 0));
+    emailContainer.addEventListener('click', (e) => handleRemoveClick(e, emailContainer, '.remove-email-btn', 0));
+    emergencyContainer.addEventListener('click', (e) => handleRemoveClick(e, emergencyContainer, '.remove-emergency-btn', 0));
+    vehicleContainer.addEventListener('click', (e) => handleRemoveClick(e, vehicleContainer, '.remove-vehicle-btn', 0));
+
+     addressContainer.addEventListener('change', (e) => {
+         if (e.target.classList.contains('address-department')) {
+             populateMunicipalities(e.target); 
+         }
+     });
+
+    function loadContactData() {
+        const contactData = JSON.parse(localStorage.getItem('userContactData')) || {};
+        const defaultPlaceholder = 'No proporcionado'; // Definir si no existe
+
+        addressContainer.innerHTML = '';
+        phoneContainer.innerHTML = '';
+        emailContainer.innerHTML = '';
+        emergencyContainer.innerHTML = '';
+        vehicleContainer.innerHTML = '';
+
+        const addresses = contactData.addresses || [];
+        if (addresses.length > 0) {
+            addresses.forEach(addr => {
+                const newRow = createAddressRow(addr);
+                addressContainer.appendChild(newRow);
+                const depSelect = newRow.querySelector('.address-department');
+                if (depSelect && addr.department) { 
+                    populateMunicipalities(depSelect, addr.municipality);
+                }
+            });
+        } else {
+            addressContainer.appendChild(createAddressRow()); 
+        }
+
+        const phones = contactData.phoneNumbers || [];
+        if(phones.length > 0) {
+             phones.forEach(ph => phoneContainer.appendChild(createPhoneRow(ph)));
+        } else {
+             phoneContainer.appendChild(createPhoneRow()); 
+        }
+
+        const emails = contactData.emailAddresses || [];
+        if(emails.length > 0) {
+             emails.forEach(em => emailContainer.appendChild(createEmailRow(em)));
+        } else {
+            emailContainer.appendChild(createEmailRow()); 
+        }
+
+        const emergencies = contactData.emergencyContacts || [];
+        if(emergencies.length > 0) {
+             emergencies.forEach(emc => emergencyContainer.appendChild(createEmergencyContactRow(emc)));
+        } else {
+             emergencyContainer.appendChild(createEmergencyContactRow()); 
+        }
+
+        const vehicles = contactData.vehicles || [];
+        if(vehicles.length > 0) {
+            vehicles.forEach(veh => vehicleContainer.appendChild(createVehicleRow(veh)));
+        } else {
+             vehicleContainer.appendChild(createVehicleRow()); 
+        }
+        document.getElementById('enfermedadesAlergias').value = contactData.allergies || '';
+    }
+
+    function saveContactData() {
+        const addressesToSave = [];
+        addressContainer.querySelectorAll('.dynamic-list-item').forEach(row => {
+            const type = row.querySelector('.address-type').value;
+            if (type) { // Solo guardar si se seleccionó un tipo
+                addressesToSave.push({
+                    type: type,
+                    direction: row.querySelector('.address-direction').value,
+                    zone: row.querySelector('.address-zone').value,
+                    country: row.querySelector('.address-country').value,
+                    department: row.querySelector('.address-department').value,
+                    municipality: row.querySelector('.address-municipality').value
+                });
+            }
+        });
+
+        const phonesToSave = [];
+        phoneContainer.querySelectorAll('.dynamic-list-item').forEach(row => {
+            const number = row.querySelector('.phone-number').value.trim();
+            if (number) { // Solo guardar si hay número
+                phonesToSave.push({
+                     number: number,
+                     isPrimary: row.querySelector('.phone-primary').checked
+                });
+            }
+        });
+        if (phonesToSave.length > 0 && !phonesToSave.some(p => p.isPrimary)) {
+             if (phonesToSave[0]) phonesToSave[0].isPrimary = true;
+        }
+
+        const emailsToSave = [];
+        emailContainer.querySelectorAll('.dynamic-list-item').forEach(row => {
+             const email = row.querySelector('.email-address').value.trim();
+             if (email) { // Solo guardar si hay email
+                 emailsToSave.push({
+                     email: email,
+                     isPrimary: row.querySelector('.email-primary').checked
+                 });
+             }
+        });
+         if (emailsToSave.length > 0 && !emailsToSave.some(e => e.isPrimary)) {
+             if (emailsToSave[0]) emailsToSave[0].isPrimary = true;
+        }
+
+        const emergencyContactsToSave = [];
+        emergencyContainer.querySelectorAll('.dynamic-list-item').forEach(row => {
+             const name = row.querySelector('.emergency-name').value.trim();
+             if (name) { // Solo guardar si hay nombre
+                 emergencyContactsToSave.push({
+                     name: name,
+                     comment: row.querySelector('.emergency-comment').value,
+                     phones: row.querySelector('.emergency-phones').value
+                 });
+             }
+        });
+
+        const vehiclesToSave = [];
+        vehicleContainer.querySelectorAll('.dynamic-list-item').forEach(row => {
+             const plate = row.querySelector('.vehicle-plate').value.trim();
+             if (plate) { // Solo guardar si hay placa
+                 vehiclesToSave.push({
+                      plate: plate,
+                      brand: row.querySelector('.vehicle-brand').value,
+                      model: row.querySelector('.vehicle-model').value,
+                      color: row.querySelector('.vehicle-color').value
+                 });
+             }
+        });
+
+        const contactDataToSave = {
+            addresses: addressesToSave,
+            phoneNumbers: phonesToSave,
+            emailAddresses: emailsToSave,
+            emergencyContacts: emergencyContactsToSave,
+            vehicles: vehiclesToSave,
+            allergies: document.getElementById('enfermedadesAlergias').value
+        };
+        console.log("Saving Contact Data:", JSON.stringify(contactDataToSave, null, 2));
+        try {
+             localStorage.setItem('userContactData', JSON.stringify(contactDataToSave));
+             window.location.href = 'perfil_usuario.html'; // Corregido el nombre si era Perfil_usuario.html
+        } catch (e) {
+             console.error("Error saving to localStorage:", e);
+             alert("Error al guardar los datos. Es posible que el almacenamiento esté lleno o restringido.");
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadContactData);
+    document.getElementById('saveContactInfo').addEventListener('click', saveContactData);
+</script>
+
+</body>
+</html>

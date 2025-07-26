@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Información Académica - Universidad San Pablo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        /* Estilos base unificados */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .custom-red {
+            background-color: #ab0a0a !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card-header-icon {
+            font-size: 1.2em;
+        }
+        /* Estilos específicos para este formulario */
+        label.form-label, label.col-form-label, label.form-check-label { 
+            font-weight: 600; 
+        }
+        .current-cv-info, .file-info { 
+            font-size: 0.875em; 
+            color: #6c757d; 
+            margin-top: 0.25rem; 
+            display: block;
+        }
+        #togglePasswordVisibility { 
+            cursor: pointer; 
+        }
+        .dynamic-list-header { 
+            background-color: #f8f9fa; 
+            color: #212529;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 1rem; 
+            border-radius: 0.25rem; 
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .remove-btn { 
+            color: #dc3545;
+            cursor: pointer; 
+            background: none;
+            border: none;
+            padding: 0.25rem 0.5rem;
+        }
+        .remove-btn:hover {
+            color: #a71d2a;
+        }
+        .add-btn-custom { /* Reemplaza .add-btn */
+            text-decoration: none;
+        }
+        .language-row, .title-row { 
+            border-bottom: 1px solid #e9ecef; 
+            padding-bottom: 0.75rem; 
+            margin-bottom: 0.75rem; 
+        }
+        .language-row:last-child, .title-row:last-child { 
+            border-bottom: none; 
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <!-- Navbar Unificado -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+         <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-university me-2"></i>Universidad San Pablo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+        
+           
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contenido Principal -->
+    <main class="container my-4 my-lg-5 flex-grow-1">
+        <h1 class="display-5 text-center mb-4 text-dark-emphasis">
+            <i class="fas fa-user-cog me-2" style="color: #ab0a0a;"></i>Editar Información Académica y Acceso
+        </h1>
+    
+        <form id="editAcademicForm">
+            <!-- Card: Acceso y Datos Generales -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                    <h5 class="mb-0"><i class="fas fa-shield-alt me-2 text-primary card-header-icon"></i>Acceso y Datos Generales</h5>
+                </div>
+                <div class="card-body p-4">
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tipoUsuario" class="form-label">Tipo de usuario:</label>
+                                <input type="text" class="form-control form-control-sm" id="tipoUsuario" name="tipoUsuario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="carneActual" class="form-label">Carné (Actual):</label>
+                                <input type="text" class="form-control form-control-sm" id="carneActual" name="carneActual">
+                            </div>
+                             <div class="mb-3">
+                                <label for="otrosCarne" class="form-label">Otros carné:</label>
+                                <textarea class="form-control form-control-sm" id="otrosCarne" name="otrosCarne" rows="2" placeholder="Uno por línea si son varios"></textarea>
+                            </div>
+                             <div class="mb-3">
+                                <label for="idiomaSistema" class="form-label">Idioma del Sistema:</label>
+                                <select class="form-select form-select-sm" id="idiomaSistema" name="idiomaSistema">
+                                    <option value="es" selected>Español</option>
+                                    <option value="en">Inglés</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="usuarioNombre" class="form-label">Usuario (Nombre):</label>
+                                <input type="text" class="form-control form-control-sm" id="usuarioNombre" name="usuarioNombre">
+                            </div>
+                             <div class="mb-3">
+                                <label for="contrasena" class="form-label">Contraseña:</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Dejar en blanco para no cambiar" autocomplete="new-password">
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePasswordVisibility">
+                                        <i class="fas fa-eye" id="passwordEyeIcon"></i>
+                                    </button>
+                                </div>
+                                <small class="form-text text-muted">Ingresa una nueva contraseña solo si deseas cambiarla.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+    
+            <!-- Card: Idiomas que Maneja -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                    <h5 class="mb-0"><i class="fas fa-language me-2 text-success card-header-icon"></i>Idiomas que Maneja</h5>
+                </div>
+                 <div class="card-body p-4">
+                     <div class="dynamic-list-header row text-center g-2 align-items-center">
+                         <div class="col-md-4">Idioma</div>
+                         <div class="col-md-3">% Escrito</div>
+                         <div class="col-md-3">% Hablado</div>
+                         <div class="col-md-2">Quitar</div>
+                     </div>
+                     <div id="languageListContainer" class="mt-2">
+                         {/* <!-- Filas de idioma generadas por JS --> */}
+                     </div>
+                     <div class="text-start mt-3">
+                         <a href="#" id="addLanguageBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Idioma</a>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- Card: Formación y Estudios -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                    <h5 class="mb-0"><i class="fas fa-graduation-cap me-2 text-info card-header-icon"></i>Formación y Estudios</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                               <label for="ultimoGrado" class="form-label">Último grado cursado:</label>
+                               <input type="text" class="form-control form-control-sm" id="ultimoGrado" name="ultimoGrado" placeholder="Ej: Bachillerato, Licenciatura">
+                           </div>
+                        </div>
+                        <div class="col-md-6">
+                             <div class="mb-3">
+                               <label for="colegiadoActivo" class="form-label">Colegiado Activo (si aplica):</label>
+                                <input type="text" class="form-control form-control-sm" id="colegiadoActivo" name="colegiadoActivo" placeholder="Número de colegiado">
+                           </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="estudiaActualmenteCheck">
+                        <label class="form-check-label" for="estudiaActualmenteCheck">
+                            Estudia actualmente
+                        </label>
+                    </div>
+                    <div id="estudiaDetallesContainer" style="display: none;">
+                        <div class="row mb-2">
+                            <label for="estudiaQue" class="col-sm-4 col-lg-3 col-form-label col-form-label-sm">¿Qué estudia?</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" class="form-control form-control-sm" id="estudiaQue" placeholder="Ej: Maestría en Redes">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="estudiaLugar" class="col-sm-4 col-lg-3 col-form-label col-form-label-sm">Lugar de estudio:</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" class="form-control form-control-sm" id="estudiaLugar" placeholder="Ej: Universidad San Pablo Campus Central">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="estudiaHorario" class="col-sm-4 col-lg-3 col-form-label col-form-label-sm">Horario de estudio:</label>
+                            <div class="col-sm-8 col-lg-9">
+                                <input type="text" class="form-control form-control-sm" id="estudiaHorario" placeholder="Ej: Sábados 8am - 1pm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+            <!-- Card: Títulos y Diplomas -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                    <h5 class="mb-0"><i class="fas fa-award me-2 text-warning card-header-icon"></i>Títulos y Diplomas</h5>
+                </div>
+                 <div class="card-body p-4">
+                     <small class="form-text text-muted d-block mb-3">Sube tus títulos o diplomas (.png, .gif, .pdf, .jpg, .jpeg).</small>
+                     <div id="titlesContainer">
+                         {/* <!-- Filas de títulos generadas por JS --> */}
+                     </div>
+                     <div class="text-start mt-3">
+                         <a href="#" id="addTitleBtn" class="btn btn-sm btn-outline-success add-btn-custom"><i class="fas fa-plus-circle me-1"></i>Añadir Título/Diploma</a>
+                     </div>
+                </div>
+            </div>
+    
+            <!-- Card: Curriculum Vitae -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white text-dark-emphasis py-3">
+                    <h5 class="mb-0"><i class="fas fa-file-alt me-2 text-secondary card-header-icon"></i>Curriculum Vitae (General)</h5>
+                </div>
+                 <div class="card-body p-4">
+                      <div class="mb-1">
+                        <label for="cv" class="form-label">Archivo CV:</label>
+                        <input class="form-control form-control-sm" type="file" id="cv" name="cv" accept=".pdf,.doc,.docx">
+                        <div id="currentCvInfo" class="current-cv-info mt-1"></div>
+                        <small class="form-text text-muted">Sube un archivo PDF o Word para reemplazar el actual.</small>
+                     </div>
+                 </div>
+            </div>
+    
+            <!-- Botones de Acción -->
+            <div class="text-end mb-4">
+                 <a href="perfil_usuario.html" class="btn btn-secondary me-2"><i class="fas fa-times me-1"></i>Cancelar</a>
+                 <button type="button" id="saveAcademicInfo" class="btn btn-danger"><i class="fas fa-save me-1"></i>Guardar Cambios</button>
+            </div>
+        </form>
+    </main>
+    
+    <!-- Pie de página Unificado -->
+    <footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+        <p class="mb-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {/* <!-- El JavaScript que proporcionaste se mantiene igual en su lógica --> */}
+    <script>
+        const languageListContainer = document.getElementById('languageListContainer');
+        const addLanguageBtn = document.getElementById('addLanguageBtn');
+        const estudiaCheck = document.getElementById('estudiaActualmenteCheck');
+        const estudiaDetallesContainer = document.getElementById('estudiaDetallesContainer');
+        const titlesContainer = document.getElementById('titlesContainer');
+        const addTitleBtn = document.getElementById('addTitleBtn');
+        const cvInput = document.getElementById('cv');
+        const cvInfoDiv = document.getElementById('currentCvInfo');
+    
+        let currentCvFileName = null;
+        let languageCounter = 0;
+        let titleCounter = 0; 
+    
+        const languageOptions = [ 
+            { value: "es", text: "Español" }, { value: "en", text: "Inglés" }, { value: "fr", text: "Francés" },
+            { value: "de", text: "Alemán" }, { value: "pt", text: "Portugués" }, { value: "it", text: "Italiano" },
+            { value: "other", text: "Otro" }
+        ];
+    
+        function createLanguageRow(data = { lang: 'es', written: '', spoken: '' }) {
+            languageCounter++;
+            const rowId = `langRow-${languageCounter}`;
+            const row = document.createElement('div');
+            row.classList.add('row', 'g-2', 'mb-2', 'align-items-center', 'language-row'); // g-2 para espaciado
+            row.id = rowId;
+    
+            row.innerHTML = `
+                <div class="col-md-4">
+                    <select class="form-select form-select-sm language-select" name="lang_${rowId}">
+                        ${languageOptions.map(opt => `<option value="${opt.value}" ${opt.value === data.lang ? 'selected' : ''}>${opt.text}</option>`).join('')}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="number" min="0" max="100" class="form-control form-control-sm language-written" placeholder="%" value="${data.written || ''}">
+                </div>
+                <div class="col-md-3">
+                    <input type="number" min="0" max="100" class="form-control form-control-sm language-spoken" placeholder="%" value="${data.spoken || ''}">
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="remove-btn remove-language-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+            return row;
+        }
+    
+        addLanguageBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            languageListContainer.appendChild(createLanguageRow());
+        });
+    
+        languageListContainer.addEventListener('click', (e) => {
+            const removeButton = e.target.closest('.remove-language-btn');
+            if (removeButton) {
+                e.preventDefault();
+                if (languageListContainer.querySelectorAll('.language-row').length > 1) {
+                     const rowIdToRemove = removeButton.getAttribute('data-row-id');
+                     document.getElementById(rowIdToRemove)?.remove();
+                } else {
+                    alert('Debe haber al menos un idioma.');
+                }
+            }
+        });
+    
+        function createTitleRow(data = { fileName: null }) {
+            titleCounter++;
+            const rowId = `titleRow-${titleCounter}`;
+            const row = document.createElement('div');
+            row.classList.add('row', 'g-2', 'mb-2', 'align-items-center', 'title-row');
+            row.id = rowId;
+            
+            row.innerHTML = `
+                <div class="col-md-10">
+                    <input type="file" class="form-control form-control-sm title-file-input" accept=".png,.gif,.pdf,.jpg,.jpeg">
+                    <span class="file-info title-file-info">${data.fileName ? `Actual: ${data.fileName}` : 'Selecciona un archivo'}</span>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="remove-btn remove-title-btn" data-row-id="${rowId}"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            `;
+            if (data.fileName) row.setAttribute('data-current-filename', data.fileName);
+
+            const fileInputInRow = row.querySelector('.title-file-input');
+            const fileInfoInRow = row.querySelector('.title-file-info');
+            fileInputInRow.addEventListener('change', (ev) => {
+                 if (ev.target.files && ev.target.files.length > 0) {
+                      fileInfoInRow.textContent = `Nuevo: ${ev.target.files[0].name}`;
+                 } else if(row.getAttribute('data-current-filename')) {
+                     fileInfoInRow.textContent = `Actual: ${row.getAttribute('data-current-filename')}`;
+                 } else {
+                      fileInfoInRow.textContent = 'Selecciona un archivo';
+                 }
+            });
+            return row;
+        }
+    
+        addTitleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            titlesContainer.appendChild(createTitleRow());
+        });
+    
+         titlesContainer.addEventListener('click', (e) => {
+            const removeButton = e.target.closest('.remove-title-btn');
+            if (removeButton) {
+                e.preventDefault();
+                const rowIdToRemove = removeButton.getAttribute('data-row-id');
+                document.getElementById(rowIdToRemove)?.remove();
+            }
+        });
+    
+        estudiaCheck.addEventListener('change', () => {
+            estudiaDetallesContainer.style.display = estudiaCheck.checked ? 'block' : 'none';
+        });
+    
+        const togglePasswordButton = document.getElementById('togglePasswordVisibility');
+        const passwordInput = document.getElementById('contrasena');
+        const passwordIcon = document.getElementById('passwordEyeIcon');
+         if (togglePasswordButton && passwordInput && passwordIcon) {
+            togglePasswordButton.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                passwordIcon.className = (type === 'password') ? 'fas fa-eye' : 'fas fa-eye-slash';
+            });
+        }
+    
+        function loadAcademicData() {
+            const academicData = JSON.parse(localStorage.getItem('userAcademicData')) || {};
+    
+            document.getElementById('tipoUsuario').value = academicData.tipoUsuario || '';
+            document.getElementById('carneActual').value = academicData.carneActual || '';
+            document.getElementById('usuarioNombre').value = academicData.usuarioNombre || '';
+            document.getElementById('otrosCarne').value = academicData.otrosCarne || '';
+            document.getElementById('ultimoGrado').value = academicData.ultimoGrado || '';
+            document.getElementById('colegiadoActivo').value = academicData.colegiadoActivo || '';
+            document.getElementById('idiomaSistema').value = academicData.idiomaSistema || 'es';
+    
+            languageListContainer.innerHTML = ''; 
+            const languages = academicData.languages || [];
+            if (languages.length > 0) {
+                languages.forEach(lang => languageListContainer.appendChild(createLanguageRow(lang)));
+            } else {
+                languageListContainer.appendChild(createLanguageRow()); 
+            }
+    
+            estudiaCheck.checked = academicData.estudiaActualmenteBool || false;
+            estudiaDetallesContainer.style.display = estudiaCheck.checked ? 'block' : 'none';
+            document.getElementById('estudiaQue').value = academicData.estudiaQue || '';
+            document.getElementById('estudiaLugar').value = academicData.estudiaLugar || '';
+            document.getElementById('estudiaHorario').value = academicData.estudiaHorario || '';
+    
+            titlesContainer.innerHTML = ''; 
+            const titles = academicData.titles || [];
+             if (titles.length > 0) {
+                titles.forEach(title => titlesContainer.appendChild(createTitleRow(title)));
+            } else {
+                 // No añadir uno vacío por defecto aquí, mejor dejar que el usuario lo añada si quiere
+            }
+    
+            currentCvFileName = academicData.cvFileName || null;
+            if (cvInfoDiv) {
+                 cvInfoDiv.textContent = currentCvFileName ? `Archivo actual: ${currentCvFileName}` : 'No hay CV cargado actualmente.';
+            }
+            if(cvInput) cvInput.value = '';
+        }
+    
+        function saveAcademicData() {
+            const languagesToSave = [];
+            languageListContainer.querySelectorAll('.language-row').forEach(row => {
+                const lang = row.querySelector('.language-select').value;
+                const written = row.querySelector('.language-written').value;
+                const spoken = row.querySelector('.language-spoken').value;
+                if (lang) { 
+                    languagesToSave.push({ lang, written, spoken });
+                }
+            });
+    
+            const titlesToSave = [];
+            titlesContainer.querySelectorAll('.title-row').forEach(row => {
+                 const fileInput = row.querySelector('.title-file-input');
+                 const currentFileName = row.getAttribute('data-current-filename');
+                 let fileNameToSave = null;
+                 if (fileInput.files && fileInput.files.length > 0) {
+                     fileNameToSave = fileInput.files[0].name; 
+                 } else if (currentFileName) {
+                     fileNameToSave = currentFileName; 
+                 }
+                 if(fileNameToSave) { 
+                    titlesToSave.push({ fileName: fileNameToSave });
+                 }
+            });
+    
+            let cvFileNameToSave = currentCvFileName;
+            if (cvInput.files && cvInput.files.length > 0) {
+                cvFileNameToSave = cvInput.files[0].name;
+            }
+    
+            const academicData = {
+                tipoUsuario: document.getElementById('tipoUsuario').value,
+                carneActual: document.getElementById('carneActual').value,
+                usuarioNombre: document.getElementById('usuarioNombre').value,
+                otrosCarne: document.getElementById('otrosCarne').value,
+                ultimoGrado: document.getElementById('ultimoGrado').value,
+                colegiadoActivo: document.getElementById('colegiadoActivo').value,
+                idiomaSistema: document.getElementById('idiomaSistema').value,
+                languages: languagesToSave,
+                estudiaActualmenteBool: estudiaCheck.checked,
+                estudiaQue: estudiaCheck.checked ? document.getElementById('estudiaQue').value : '',
+                estudiaLugar: estudiaCheck.checked ? document.getElementById('estudiaLugar').value : '',
+                estudiaHorario: estudiaCheck.checked ? document.getElementById('estudiaHorario').value : '',
+                titles: titlesToSave, 
+                cvFileName: cvFileNameToSave 
+            };
+    
+            const passwordValue = document.getElementById('contrasena').value;
+            if (passwordValue) {
+                academicData.password = passwordValue;
+                console.warn("Guardando contraseña directamente. Considerar hashing en entorno real.");
+            }
+    
+            localStorage.setItem('userAcademicData', JSON.stringify(academicData));
+            window.location.href = 'perfil_usuario.html'; // Asegurarse que el nombre es correcto
+        }
+    
+        document.addEventListener('DOMContentLoaded', loadAcademicData);
+        document.getElementById('saveAcademicInfo').addEventListener('click', saveAcademicData);
+    </script>
+    
+    </body>
+    </html>

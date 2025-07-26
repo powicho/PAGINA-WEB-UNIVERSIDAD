@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Información de Usuario - Universidad San Pablo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        /* Estilos base unificados */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .custom-red {
+            background-color: #ab0a0a !important;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card-header-icon {
+            font-size: 1.2em;
+        }
+        /* Estilos específicos para este formulario de edición */
+        .current-profile-pic { 
+            max-width: 150px; 
+            display: block; 
+            margin-bottom: 10px; 
+            height: auto;
+            border: 1px solid #dee2e6; /* Borde sutil */
+        }
+        /* Los labels ya tienen buen estilo con form-label de Bootstrap, pero si se quiere forzar:
+        label.form-label { 
+            font-weight: 600;
+        }
+        */
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- Navbar Unificado -->
+<nav class="navbar navbar-expand-lg navbar-dark custom-red shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-university me-2"></i>Universidad San Pablo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+   
+                <!-- Considerar si se necesitan más enlaces o si este es el adecuado --> 
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido Principal - Formulario de Edición -->
+<main class="container my-4 my-lg-5 flex-grow-1">
+    <h1 class="display-5 text-center mb-4 text-dark-emphasis">
+        <i class="fas fa-user-edit me-2" style="color: #ab0a0a;"></i>Editar Información de Usuario
+    </h1>
+
+    <form id="editUserForm">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white text-dark-emphasis py-3">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2 text-primary card-header-icon"></i>Datos Personales</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="row">
+                    <!-- Columna de Datos -->
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="primerNombre" class="form-label">Primer Nombre:</label>
+                                    <input type="text" class="form-control" id="primerNombre" name="primerNombre">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="otrosNombres" class="form-label">Otros Nombres:</label>
+                                    <input type="text" class="form-control" id="otrosNombres" name="otrosNombres">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="primerApellido" class="form-label">Primer Apellido:</label>
+                                    <input type="text" class="form-control" id="primerApellido" name="primerApellido">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="otrosApellidos" class="form-label">Otros Apellidos:</label>
+                                    <input type="text" class="form-control" id="otrosApellidos" name="otrosApellidos">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nacionalidad" class="form-label">Nacionalidad:</label>
+                                    <input type="text" class="form-control" id="nacionalidad" name="nacionalidad">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="genero" class="form-label">Género:</label>
+                                     <!-- Considerar cambiar a <select> para mejor UX --> 
+                                    <select class="form-select" id="genero" name="genero">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otro">Otro</option>
+                                        <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento:</label>
+                                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="estadoCivil" class="form-label">Estado civil (legal):</label>
+                                     <select class="form-select" id="estadoCivil" name="estadoCivil">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Soltero/a">Soltero/a</option>
+                                        <option value="Casado/a">Casado/a</option>
+                                        <option value="Divorciado/a">Divorciado/a</option>
+                                        <option value="Viudo/a">Viudo/a</option>
+                                        <option value="Unido/a">Unido/a</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipoPersona" class="form-label">Tipo de persona (legal):</label>
+                                    <select class="form-select" id="tipoPersona" name="tipoPersona">
+                                        <option value="">Seleccionar...</option>
+                                        <option value="Individual">Individual</option>
+                                        <option value="Jurídica">Jurídica</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="saludo" class="form-label">Saludo (Sr., Sra., Ing., Lic.):</label>
+                                    <input type="text" class="form-control" id="saludo" name="saludo">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="numHijos" class="form-label">Número de hijos:</label>
+                                    <input type="number" class="form-control" id="numHijos" name="numHijos" min="0">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellidoCasado" class="form-label">Apellido de casado/a (si aplica):</label>
+                                    <input type="text" class="form-control" id="apellidoCasado" name="apellidoCasado">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombreConyuge" class="form-label">Nombre del cónyuge (si aplica):</label>
+                                    <input type="text" class="form-control" id="nombreConyuge" name="nombreConyuge">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="religion" class="form-label">Religión:</label>
+                                    <input type="text" class="form-control" id="religion" name="religion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Columna de Foto -->
+                    <div class="col-lg-4 text-center mt-4 mt-lg-0">
+                         <label for="fotoPerfil" class="form-label d-block mb-2">Foto de perfil:</label>
+                         <img id="currentProfilePic" src="images/defaultUserIcon.png" class="img-thumbnail current-profile-pic" alt="Foto de perfil actual">
+                         <!-- Asegúrate que la ruta 'images/defaultUserIcon.png' sea correcta o ajústala --> 
+                         <input class="form-control mt-2" type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+                         <small class="form-text text-muted d-block mt-1">Sube una nueva imagen para reemplazar la actual.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="text-end mb-4">
+             <a href="perfil_usuario.html" class="btn btn-secondary me-2"><i class="fas fa-times me-1"></i>Cancelar</a>
+             <button type="button" id="saveUserInfo" class="btn btn-danger"><i class="fas fa-save me-1"></i>Guardar Cambios</button>
+        </div>
+    </form>
+</main>
+
+<!-- Pie de página Unificado -->
+<footer class="bg-white text-muted text-center py-3 mt-auto border-top">
+    <p class="mb-0">© 2025 - Universidad San Pablo. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+{/* <!-- El JavaScript que proporcionaste se mantiene igual en su lógica --> */}
+<script>
+    const profileImage = document.getElementById('currentProfilePic');
+    const fotoPerfilInput = document.getElementById('fotoPerfil');
+    const defaultImageSrc = profileImage.src; // Guardar la imagen por defecto inicial
+
+    function loadUserData() {
+        const userData = JSON.parse(localStorage.getItem('userProfileData')) || {};
+
+        document.getElementById('primerNombre').value = userData.primerNombre || '';
+        document.getElementById('otrosNombres').value = userData.otrosNombres || '';
+        document.getElementById('primerApellido').value = userData.primerApellido || '';
+        document.getElementById('otrosApellidos').value = userData.otrosApellidos || '';
+        document.getElementById('nacionalidad').value = userData.nacionalidad || '';
+        document.getElementById('genero').value = userData.genero || ''; // JS cargará el valor, el <select> lo tomará
+        document.getElementById('fechaNacimiento').value = userData.fechaNacimiento || '';
+        document.getElementById('estadoCivil').value = userData.estadoCivil || ''; // JS cargará el valor
+        document.getElementById('tipoPersona').value = userData.tipoPersona || ''; // JS cargará el valor
+        document.getElementById('saludo').value = userData.saludo || '';
+        document.getElementById('numHijos').value = userData.numHijos || '';
+        document.getElementById('apellidoCasado').value = userData.apellidoCasado || '';
+        document.getElementById('nombreConyuge').value = userData.nombreConyuge || '';
+        document.getElementById('religion').value = userData.religion || '';
+
+        if (userData.profileImageUrl) {
+            profileImage.src = userData.profileImageUrl;
+        } else {
+            profileImage.src = defaultImageSrc; 
+        }
+    }
+
+    fotoPerfilInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profileImage.src = e.target.result; 
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function saveUserData() {
+        const currentImageSrc = profileImage.src;
+        let imageUrlToSave = null;
+
+        // Solo guardamos la imagen si es una nueva (data URL) y no es la imagen por defecto
+        if (currentImageSrc && currentImageSrc.startsWith('data:image/') && currentImageSrc !== defaultImageSrc) {
+            imageUrlToSave = currentImageSrc;
+        } else if (currentImageSrc && !currentImageSrc.startsWith('data:image/') && currentImageSrc !== defaultImageSrc) {
+            // Si la imagen actual no es data URL y no es la default, significa que es una imagen previamente guardada y no cambiada.
+            // Necesitamos decidir si la queremos re-guardar o si solo guardamos si es nueva.
+            // Para este ejemplo, si no es una nueva data URL, no la guardaremos (asumimos que ya está en userData.profileImageUrl si no cambió)
+            // Si quieres que siempre se guarde la URL (incluso si no es data URL, es decir, la que se cargó inicialmente):
+            // imageUrlToSave = currentImageSrc; 
+            // Pero esto es riesgoso si la imagen inicial era un placeholder que no quieres guardar.
+            // La lógica actual es: si se carga una nueva imagen, se guarda. Si se queda la que estaba (o la default), se guarda el profileImageUrl que ya existía.
+            const existingUserData = JSON.parse(localStorage.getItem('userProfileData')) || {};
+            if (currentImageSrc === (existingUserData.profileImageUrl || defaultImageSrc)) { // Si es la misma que ya estaba guardada o la default
+                 imageUrlToSave = existingUserData.profileImageUrl; // Mantener la URL guardada previamente
+            }
+        }
+
+
+        const userData = {
+            primerNombre: document.getElementById('primerNombre').value,
+            otrosNombres: document.getElementById('otrosNombres').value,
+            primerApellido: document.getElementById('primerApellido').value,
+            otrosApellidos: document.getElementById('otrosApellidos').value,
+            nacionalidad: document.getElementById('nacionalidad').value,
+            genero: document.getElementById('genero').value,
+            fechaNacimiento: document.getElementById('fechaNacimiento').value,
+            estadoCivil: document.getElementById('estadoCivil').value,
+            tipoPersona: document.getElementById('tipoPersona').value,
+            saludo: document.getElementById('saludo').value,
+            numHijos: document.getElementById('numHijos').value,
+            apellidoCasado: document.getElementById('apellidoCasado').value,
+            nombreConyuge: document.getElementById('nombreConyuge').value,
+            religion: document.getElementById('religion').value,
+            profileImageUrl: imageUrlToSave 
+        };
+
+        localStorage.setItem('userProfileData', JSON.stringify(userData));
+        // alert('Información guardada con éxito!'); // Descomentar para feedback
+        window.location.href = 'perfil_usuario.html'; // Corregido el nombre del archivo si era Perfil_usuario.html
+    }
+
+    document.addEventListener('DOMContentLoaded', loadUserData);
+    document.getElementById('saveUserInfo').addEventListener('click', saveUserData);
+</script>
+
+</body>
+</html>
